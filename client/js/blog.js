@@ -38,14 +38,19 @@ var blog = (function() {
             if (opts && (opts.count || opts.offset)) {
                 var offset = opts.offset || 0;
                 var count = opts.count || data.length;
-                return data.slice(offset, (offset+count));
+                opts.onSuccess(data.slice(offset, (offset+count)));
             } else { // return it all
-                return data;
+                opts.onSuccess(data);
             }
         },
     
-        post: function(id) {
-            return byid[id];
+        post: function(opts) {
+            // check for id
+            if (opts.id) {
+                opts.onSuccess(byid[opts.id]);
+            } else {
+                opts.onFailure();
+            }
         }
     }
 })();
