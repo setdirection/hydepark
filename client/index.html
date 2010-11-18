@@ -17,15 +17,20 @@
 
 $(document).ready(function() {
     // TEST CLIENT
-    
-    console.log(blog.posts()); // get all posts
-    
-    console.log(blog.posts({ count: 1 })); // get 1 post
-    
-    console.log(blog.posts({ count: 1, offset: 1 })); // get second
-    
-    console.log(blog.post("set-direction-launches")); // get one post based on id
-    
+    var logger = {
+       onSuccess: function(data) {
+           console.log(data);
+       }
+    };
+
+    blog.posts(logger);
+
+    blog.posts($.extend({}, logger, { count: 1 })); // get 1 post
+
+    blog.posts($.extend({}, logger, { count: 1, offset: 1 })); // get 2nd
+
+    blog.post($.extend({}, logger, { id: "set-direction-launches" })); // get one post based on id
+
     // load settings from some persistent store
     
     // check hash to know if looking at one post
