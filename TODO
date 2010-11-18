@@ -10,6 +10,9 @@
     . Modernizr + YepNope for tests
     . RequireJS
         . require(["blogApp"]);
+    . Tweetstream
+        . https://github.com/mikeal/tweetstream/
+        . https://github.com/mikeal/tweetstream/blob/master/test/osb.js
 
 MAIN PAGE
 
