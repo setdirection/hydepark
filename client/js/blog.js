@@ -34,7 +34,14 @@ var blog = (function() {
     return {
         // opts = { count: x, offset: y }
         posts: function(opts) {
-            return data;
+            // slice mode
+            if (opts && (opts.count || opts.offset)) {
+                var offset = opts.offset || 0;
+                var count = opts.count || data.length;
+                return data.slice(offset, (offset+count));
+            } else { // return it all
+                return data;
+            }
         },
     
         post: function(id) {
