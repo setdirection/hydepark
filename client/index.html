@@ -20,6 +20,10 @@ $(document).ready(function() {
     
     console.log(blog.posts()); // get all posts
     
+    console.log(blog.posts({ count: 1 })); // get 1 post
+    
+    console.log(blog.posts({ count: 1, offset: 1 })); // get second
+    
     console.log(blog.post("set-direction-launches")); // get one post based on id
     
     // load settings from some persistent store
