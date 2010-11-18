@@ -7,6 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+  <script type="text/javascript" src="js/blog.js"></script>
 </head>
 
 <body>
@@ -14,6 +15,12 @@
 <script>
 
 $(document).ready(function() {
+    // TEST CLIENT
+    
+    console.log(blog.posts()); // get all posts
+    
+    console.log(blog.post("set-direction-launches")); // get one post based on id
+    
     // check hash to know if looking at one post
     // get posts or one post
     // display screent
