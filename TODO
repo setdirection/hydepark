@@ -13,6 +13,11 @@
     . Tweetstream
         . https://github.com/mikeal/tweetstream/
         . https://github.com/mikeal/tweetstream/blob/master/test/osb.js
+    . Node modules:
+        . node-yql
+            . npm install yql
+        . npm install request
+        . npm install tweetstream
 
 MAIN PAGE
 
@@ -35,6 +40,12 @@ MAIN PAGE
 - activity stream component
     . show merged tweets etc
     . save data in local storage etc
+
+- <pre language="javascript">
+    . visualize code in a really nice way
+    
+- image mouseover
+    . if a user mouses over an image and there is a larger version, expand to show it (and show metadata about the image if appropriate)
 
 SINGLE POST VIEW
 
