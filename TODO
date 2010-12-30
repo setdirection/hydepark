@@ -1,0 +1,95 @@
+------------------------------------------------------------------------------------------------
+ Client
+------------------------------------------------------------------------------------------------
+
+- Uses
+    . jQuery
+    . Mustache
+    . Underscore
+    . Backbone?
+    . Modernizr + YepNope for tests
+    . RequireJS
+        . require(["blogApp"]);
+    . Tweetstream
+        . https://github.com/mikeal/tweetstream/
+        . https://github.com/mikeal/tweetstream/blob/master/test/osb.js
+    . Node modules:
+        . node-yql
+            . npm install yql
+        . npm install request
+        . npm install tweetstream
+
+MAIN PAGE
+
+- Use Socket.IO to setup a bi-directional socket to Node service
+    . When new posts happen they callback to the client
+    . [ 3 new posts ] -> on click, displays posts
+    
+- Blog posts API:
+    . add support for localstorage
+    . add manifest for appcache
+    . when the page loads, look to localstorage first and then talk back to the server and sync
+    . store the posts and settings (such as etag)
+    
+- Preferences
+    . summary only
+    . show tweets in main stream
+
+- position:fixed area on the right
+
+- activity stream component
+    . show merged tweets etc
+    . save data in local storage etc
+
+- <pre language="javascript">
+    . visualize code in a really nice way
+    
+- image mouseover
+    . if a user mouses over an image and there is a larger version, expand to show it (and show metadata about the image if appropriate)
+
+SINGLE POST VIEW
+
+- Handle http://setdirection.com/#!/post/monkey-news
+    . Load up a single post
+
+- When user clicks on a title set the URL and hide other posts
+
+TAG VIEW
+
+- When a user clicks on a tag show posts with that tag
+
+- If extra info exists, have a header explaining that tag (e.g. "jquery" -> info on the jQuery project)
+
+- If extra info exists, have a sidebar on resources related to the tag (e.g. home pages, related people, etc)
+
+------------------------------------------------------------------------------------------------
+ Server
+------------------------------------------------------------------------------------------------
+
+- Setup CouchDB Schema for JSON blog posts
+    . Create database
+    . Define schema
+
+- Node Import Service
+    . Every 5 minutes look for:
+        . RSS feed: 
+            . check timestamp to know that a new post is available
+            . if new posts, convert XML to JSON, add "type: 'blog'" and POST to CouchDB
+            . look for changes in other posts and PUT to CouchDB
+        . Twitter feed (Yahoo! Pipes Aggregated @dalmaer and @bgalbs and @setdirection and favourited):
+            . POST to CouchDB
+
+- Write Wordpress plugin
+    . filter for any update to a post and do a PUT to the node service
+        . http://data.setdirection.com/post/name-of-post {BODY}
+        
+- http://data.setdirection.com/posts?count=10&offset=20
+    . returns data on the post via JSON
+    . comments are not part of it as that is through "disqus"
+
+- http://data.setdirection.com/posts?since=ETAG
+    . talks to CouchDB and queries with If-None-Match: ETAG
+
+http://data.setdirection.com/post/name-of-post
+    - returns data
+    
