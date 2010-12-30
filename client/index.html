@@ -6,41 +6,66 @@
   <meta name="viewport" content="width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" type="text/css" href="css/default.css">
   <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+  <script type="text/javascript" src="js/mustache-100644.js"></script>
+  <script type="text/javascript" src="js/errorCodes.js"></script>
   <script type="text/javascript" src="js/blog.js"></script>
   <script type="text/javascript" src="js/client.js"></script>
+
+  <script id="template-story" type="text/html">
+    
+  </script>
+
+  <script>
+
+  $(document).ready(function() {
+      // TEST CLIENT
+      var logger = {
+         onSuccess: function(data) {
+             console.log(data);
+         }
+      };
+
+      blog.posts(logger);
+
+      blog.posts($.extend({}, logger, { count: 1 })); // get 1 post
+
+      blog.posts($.extend({}, logger, { count: 1, offset: 1 })); // get 2nd
+
+      blog.post($.extend({}, logger, { id: "set-direction-launches" })); // get one post based on id
+
+      // load settings from some persistent store
+
+      // check hash to know if looking at one post
+
+      // get posts or one post
+
+      // display screent
+  });
+
+  </script>
+
 </head>
 
 <body>
 
-<script>
-
-$(document).ready(function() {
-    // TEST CLIENT
-    var logger = {
-       onSuccess: function(data) {
-           console.log(data);
-       }
-    };
-
-    blog.posts(logger);
-
-    blog.posts($.extend({}, logger, { count: 1 })); // get 1 post
-
-    blog.posts($.extend({}, logger, { count: 1, offset: 1 })); // get 2nd
-
-    blog.post($.extend({}, logger, { id: "set-direction-launches" })); // get one post based on id
-
-    // load settings from some persistent store
+    <div id="header">Set Direction Blog</div>
     
-    // check hash to know if looking at one post
+    <div id="content"></div>
 
-    // get posts or one post
+    <script>    
+    // -- Google Analytics
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-19819617-1']);
+    _gaq.push(['_trackPageview']);
 
-    // display screent
-});
-
-</script>
-
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    
 </body>
 </html>

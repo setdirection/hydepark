@@ -1,3 +1,3 @@
 var ERROR_CODES = {
-    BLOG_CLIENT_NOT_FOUND: "notBlogClient"
+    BLOG_CLIENT_NOT_FOUND: 100
 }
