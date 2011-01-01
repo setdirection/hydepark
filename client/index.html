@@ -10,6 +10,7 @@
   <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
   <script type="text/javascript" src="js/mustache-100644.js"></script>
   <script type="text/javascript" src="js/errorCodes.js"></script>
+  <script type="text/javascript" src="js/ui.js"></script>
   <script type="text/javascript" src="js/blog.js"></script>
   <script type="text/javascript" src="js/client.js"></script>
 
@@ -27,21 +28,31 @@
          }
       };
 
-      blog.posts(logger);
+      // MISC TEST CODE
 
-      blog.posts($.extend({}, logger, { count: 1 })); // get 1 post
+      // blog.posts(logger);
 
-      blog.posts($.extend({}, logger, { count: 1, offset: 1 })); // get 2nd
+      //blog.posts($.extend({}, logger, { count: 1 })); // get 1 post
 
-      blog.post($.extend({}, logger, { id: "set-direction-launches" })); // get one post based on id
+      //blog.posts($.extend({}, logger, { count: 1, offset: 1 })); // get 2nd
 
+      //blog.post($.extend({}, logger, { id: "set-direction-launches" })); // get one post based on id
+
+      
+      // ACTUAL CODE
+      
       // load settings from some persistent store
 
       // check hash to know if looking at one post
-
-      // get posts or one post
-
-      // display screent
+      
+      // if single-post mode then...
+      
+      // else display the home screen
+      try {
+          client.displayStories();
+      } catch (e) {
+          console.log(e);
+      }
   });
 
   </script>

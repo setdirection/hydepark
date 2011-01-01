@@ -1,0 +1,7 @@
+Requirements for the client API
+====
+
+- total number of "main" stories
+- total number of "side" stories
+- retrieve "n" main stories
+- retrieve "n" side stories
