@@ -24,18 +24,19 @@ var client = (function() {
             ui.showMainStoriesLoading();
 
             // requests the posts and pass in a callback
-            blog.
+            blog.posts({ count: settings.storiesOnHome, onSuccess: client.displayStoriesSuccess });
         },
         
         // called when the request to retrieve the stories has been successful and blows away the existing content
         // block contents to display them
-        displayStoriesSuccess: function() {
-            
+        displayStoriesSuccess: function(data) {
+            // will automatically hide the main stories loading indicator if shown
+            ui.addStoriesToMain(data);
         },
 
         // used when the story retrieval fails and there is no content for the user to see. this is really bad
         displayStoriesError: function(errorCode) {
-
+            ui.newMainStoriesNotLoaded(errorCode);
         }
     }
 })();
