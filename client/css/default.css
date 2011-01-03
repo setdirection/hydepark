@@ -1,0 +1,19 @@
+#header {
+    font: 40pt sans-serif;
+}
+
+#content {
+    margin: 10px;
+}
+
+.story-headline {
+    font: 20pt serif;
+}
+
+.story-byline {
+    font: 9pt sans-serif;
+}
+
+.story-text {
+    margin: 8pt 0 20pt 0;
+}

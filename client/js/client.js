@@ -36,6 +36,8 @@ var client = (function() {
 
         // used when the story retrieval fails and there is no content for the user to see. this is really bad
         displayStoriesError: function(errorCode) {
+            console.log("on error");
+
             ui.newMainStoriesNotLoaded(errorCode);
         }
     }

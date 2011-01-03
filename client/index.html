@@ -15,30 +15,24 @@
   <script type="text/javascript" src="js/client.js"></script>
 
   <script id="template-story" type="text/html">
-    
+    <div id="{{id}}">
+        <div class="story-headline">
+            {{title}}
+        </div>
+        
+        <div class="story-byline">
+            Posted by {{author}} on {{pubDate}} (tags: {{tags}})
+        </div>
+        
+        <div class="story-text">
+            {{description}}
+        </div>
+    </div>
   </script>
 
   <script>
 
   $(document).ready(function() {
-      // TEST CLIENT
-      var logger = {
-         onSuccess: function(data) {
-             console.log(data);
-         }
-      };
-
-      // MISC TEST CODE
-
-      // blog.posts(logger);
-
-      //blog.posts($.extend({}, logger, { count: 1 })); // get 1 post
-
-      //blog.posts($.extend({}, logger, { count: 1, offset: 1 })); // get 2nd
-
-      //blog.post($.extend({}, logger, { id: "set-direction-launches" })); // get one post based on id
-
-      
       // ACTUAL CODE
       
       // load settings from some persistent store
@@ -62,6 +56,8 @@
 <body>
 
     <div id="header">Set Direction Blog</div>
+    
+    <div id="loading" style="display: none">Loading</div>
     
     <div id="content"></div>
 
