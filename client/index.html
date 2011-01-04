@@ -14,6 +14,27 @@
   <script type="text/javascript" src="js/blog.js"></script>
   <script type="text/javascript" src="js/client.js"></script>
 
+  <script id="template-excerpt" type="text/html">
+    <div id="{{id}}">
+        <div class="story-headline">
+            {{title}}
+        </div>
+        
+        <div class="story-byline">
+            Posted by {{author}} on {{pubDate}} (tags: {{tags}})
+        </div>
+        
+        <div class="story-excerpt">
+            {{content}}
+        </div>
+        
+        <div class="story-readmore">
+            <a href="#{{id}}" onclick="client.displayStory('{{id}}'); return false;">Click here to read the full story!</a>
+        </div>
+        
+    </div>
+  </script>
+
   <script id="template-story" type="text/html">
     <div id="{{id}}">
         <div class="story-headline">
@@ -24,31 +45,49 @@
             Posted by {{author}} on {{pubDate}} (tags: {{tags}})
         </div>
         
-        <div class="story-text">
-            {{description}}
+        <div class="story-full">
+            {{content}}
+        </div>
+    </div>
+  </script>
+
+  <script id="template-story-details" type="text/html">
+    <div id="{{id}}">
+        <div class="story-headline">
+            {{title}}
+        </div>
+        
+        <div class="story-byline">
+            Posted by {{author}} on {{pubDate}} (tags: {{tags}})
+        </div>
+        
+        <div class="story-full">
+            {{content}}
+        </div>
+        
+        <div class="story-comments">
+        
         </div>
     </div>
   </script>
 
   <script>
-
-  $(document).ready(function() {
-      // ACTUAL CODE
-      
+    $(document).ready(function() {
+      console.log("loading!");
+        
       // load settings from some persistent store
 
       // check hash to know if looking at one post
-      
+
       // if single-post mode then...
-      
+
       // else display the home screen
       try {
           client.displayStories();
       } catch (e) {
           console.log(e);
       }
-  });
-
+    });
   </script>
 
 </head>
@@ -59,7 +98,11 @@
     
     <div id="loading" style="display: none">Loading</div>
     
-    <div id="content"></div>
+    <!-- contains the "main" content of the page: stories or a story detail -->
+    <div id="main-content"></div>
+
+    <!-- contains the "firehouse" side stream -->
+    <div id="side-content"></div>
 
     <script>    
     // -- Google Analytics
