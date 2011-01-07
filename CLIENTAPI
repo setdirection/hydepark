@@ -1,7 +1,11 @@
 Requirements for the client API
-====
-
+===============================
 - total number of "main" stories
 - total number of "side" stories
 - retrieve "n" main stories
 - retrieve "n" side stories
+
+
+Error handling
+==============
+Exceptions should be of the shape { message: "", type: 0 } where the type comes from errorCodes.js. Exceptions can be thrown at any level of the code and should be handled appropriately.

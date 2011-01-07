@@ -2,7 +2,7 @@
     font: 40pt sans-serif;
 }
 
-#content {
+#main-content {
     margin: 10px;
 }
 
@@ -14,6 +14,15 @@
     font: 9pt sans-serif;
 }
 
-.story-text {
+.story-full {
     margin: 8pt 0 20pt 0;
 }
+
+.story-excerpt {
+    margin: 8pt 0;
+}
+
+.story-readmore {
+    margin-bottom: 20pt;
+}
+

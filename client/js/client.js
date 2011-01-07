@@ -5,28 +5,29 @@ var client = (function() {
     // default settings values; can be overridden by the user
     var settings = {
         storiesOnHome: 10,
-        showFullStory: false,
-        contentBlockId: "content"
-    }
+        showFullStory: false
+    };
+    
 
     // -- Private methods
-    
-    // called when the request to retrieve the stories has been successful and blows away the existing content
-    // block contents to display them
-    var displayStoriesSuccess = function(data) {
-        // will automatically hide the main stories loading indicator if shown
-        ui.addStoriesToMain(data);
-    }
 
     // used when the story retrieval fails and there is no content for the user to see. this is really bad
-    var displayStoriesFailure = function(errorCode) {
-        console.log("on error");
-
+    function displayStoriesFailure(errorCode) {
         ui.newMainStoriesNotLoaded(errorCode);
-    }
-
-    // -- The Public API
-
+    };
+    
+    // called when story detail has been loaded; passes the detail to the UI for display
+    function displayStorySuccess(story) {
+        // will automatically hide the main stories loading indicator if shown
+        ui.showStoryDetail(story);
+    };
+    
+    // couldn't load story
+    function displayStoryFailure(story) {
+        // will automatically hide the main stories loading indicator if shown
+        ui.showStoryDetail(story);
+    };
+    
     return {
         // save the settings
         persistSettings: function() {
@@ -37,18 +38,31 @@ var client = (function() {
         // displays are added to the content block, whereas these replace any existing content block and show a special
         // loading indicator
         displayStories: function() {
-            // check for the blog object; if not found, throw an error
-            if (!blog) throw { message: "Blog instance not created", type: ERROR.INTERNAL_STATE_INVALID };
-            
             // display a loading indicator
             ui.showMainStoriesLoading();
 
             // requests the posts and pass in a callback
-            blog.posts({
-                count: settings.storiesOnHome,
-                onSuccess: displayStoriesSuccess,
-                onFailure: displayStoriesFailure
+            blog.posts({ 
+                    fullStory: settings.showFullStory, 
+                        count: settings.storiesOnHome, 
+                    onSuccess: displayStoriesSuccess,
+                    onFailure: displayStoriesFailure
             });
-        }        
+        },
+        
+        displayStory: function(id) {
+            console.log("display story");
+            
+            // display a loading indicator
+            ui.showMainStoriesLoading();
+            
+            // requests the posts and pass in a callback
+            blog.post({
+                           id: id,
+                    fullStory: true, 
+                    onSuccess: displayStorySuccess,
+                    onFailure: displayStoryFailure
+            });
+        }
     }
 })();
