@@ -66,7 +66,7 @@ TAG VIEW
  Server
 ------------------------------------------------------------------------------------------------
 
-- Setup CouchDB Schema for JSON blog posts
+- Setup Schema for JSON blog posts
     . Create database
     . Define schema
 
@@ -77,7 +77,7 @@ TAG VIEW
             . if new posts, convert XML to JSON, add "type: 'blog'" and POST to CouchDB
             . look for changes in other posts and PUT to CouchDB
         . Twitter feed (Yahoo! Pipes Aggregated @dalmaer and @bgalbs and @setdirection and favourited):
-            . POST to CouchDB
+            . POST to DB
 
 - Write Wordpress plugin
     . filter for any update to a post and do a PUT to the node service
