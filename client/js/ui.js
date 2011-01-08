@@ -46,6 +46,8 @@ var ui = (function() {
         //   stories: array of story data objects; see blog.js to understand the story object schema
         addStoriesToMain: function(stories) {
             var content = $(S_MAIN_CONTENT);
+            content.empty();
+            
             var storyTemplate = $(S_MT_STORY).html();
             var excerptTemplate = $(S_MT_EXCERPT).html();
             
@@ -74,7 +76,12 @@ var ui = (function() {
             var storyTemplate = $(S_MT_DETAILS).html();
             var storyHtml = Mustache.to_html(storyTemplate, story);
             content.prepend(storyHtml);
-            window.location.hash = story.id;
+
+            // setup history state
+            // TODO make sure the "currentState" object has info it needs to get back to onpopstate
+            var htmlTitle = story.title + " on Set Direction";
+            document.title = htmlTitle;
+            history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/" + story.id);            
             
             // request the comments for the story
             // TODO: work out the API for this
@@ -83,7 +90,6 @@ var ui = (function() {
         },
         
         addStoriesToSide: function(stories) {
-            
             ui.hideSideStoriesLoading();
         },
         
