@@ -29,7 +29,7 @@
         </div>
         
         <div class="story-readmore">
-            <a href="#{{id}}" onclick="client.displayStory('{{id}}'); return false;">Click here to read the full story!</a>
+            <a href="/{{id}}" onclick="client.displayStory('{{id}}'); return false;">Click here to read the full story!</a>
         </div>
         
     </div>
@@ -82,12 +82,13 @@
       // if single-post mode then...
 
       // else display the home screen
-      try {
-          client.displayStories();
-      } catch (e) {
-          console.log(e);
-      }
-    });
+      // TODO: turned this off as popstate is caused which will do that for us
+      // try {
+      //     client.displayStories();
+      // } catch (e) {
+      //     console.log(e);
+      // }
+    });    
   </script>
 
 </head>

@@ -11,6 +11,14 @@ var client = (function() {
 
     // -- Private methods
 
+    // TODO: rename the "display" functions here to be "load" instead, reflecting that the UI tier actually does
+    // the displaying
+    // called when the request to retrieve the stories has been successful and passes stories to the UI to display
+    function displayStoriesSuccess(data) {
+        // will automatically hide the main stories loading indicator if shown
+        ui.addStoriesToMain(data);
+    };
+
     // used when the story retrieval fails and there is no content for the user to see. this is really bad
     function displayStoriesFailure(errorCode) {
         ui.newMainStoriesNotLoaded(errorCode);
@@ -27,7 +35,8 @@ var client = (function() {
         // will automatically hide the main stories loading indicator if shown
         ui.showStoryDetail(story);
     };
-    
+
+    // -- Public Methods
     return {
         // save the settings
         persistSettings: function() {
@@ -66,3 +75,19 @@ var client = (function() {
         }
     }
 })();
+
+// handle history
+// TODO: share with the URL parser
+$(window).bind("popstate", function(e) {
+    console.log("POP!");
+    var state = e.originalEvent.state;
+    console.log(state);
+    if (state && state.type == "displayStory" && state.story.id) {
+        console.log(state.story.id);
+        document.title = state.title;
+        client.displayStory(state.story.id);
+    } else {
+        document.title = "Set Direction - A Ben and Dion Company"; // put in config somewhere
+        client.displayStories();
+    }
+});
