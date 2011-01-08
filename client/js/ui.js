@@ -89,6 +89,16 @@ var ui = (function() {
         
         // informs the user that whatever they are looking at is stale, or, if no cached data is available,
         // do something reasonable to inform the user why he didn't get any data.
-        newMainStoriesNotLoaded: function(error) {}        
+        newMainStoriesNotLoaded: function(error) {},
+        
+        transitionDefaultToHome: function(data, callback) {},
+        
+        transitionDefaultToStory: function(data, callback) {},
+        
+        transitionHomeToStory: function(data, callback) {
+            
+        },
+        
+        transitionStoryToHome: function(data, callback) {}
     }
 })();

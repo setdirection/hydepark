@@ -38,8 +38,7 @@ var client = (function() {
         // displays are added to the content block, whereas these replace any existing content block and show a special
         // loading indicator
         displayStories: function() {
-            // display a loading indicator
-            ui.showMainStoriesLoading();
+            state.transitionState(state.STATE_HOME);
 
             // requests the posts and pass in a callback
             blog.posts({ 

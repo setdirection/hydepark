@@ -1,18 +1,17 @@
 var state = (function() {
     var currentState = state.STATE_DEFAULT;
     var destinationState;
+    var postTransitionQueue = [];
     
     var transitions = {
-        transitionDefaultToHome: function() {},
-        
-        transitionDefaultToStory: function() {},
-        
-        transitionHomeToStory: function() {},
-        
-        transitionStoryToHome: function() {},
-        
         setNewState: function(newState) {
             currentState = newState;
+            
+            var queue = postTransitionQueue;
+            postTransitionQueue = [];
+            jQuery.each(queue, function(index, op) {
+                if (op.state == currentState) op.callback();
+            });
         }
     }
     
