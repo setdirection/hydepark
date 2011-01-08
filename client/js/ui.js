@@ -6,40 +6,7 @@ var ui = (function() {
     var S_MT_EXCERPT = "#template-excerpt";
     var S_MT_DETAILS = "#template-story-details";
 
-    // state constants
-    var STATE_ALL_STORIES = "stories";
-    var STATE_STORY = "story";
-    var STATE_TRANSITION = "transition";
-
-    // current state of the UI; the initial state is probably STATE_ALL_STORIES
-    var currentState = STATE_ALL_STORIES;
-
-    // a trivial, temporary loading effect
-    function sillyLoading(show) {
-        if (show) { // show it
-            $(S_LOADING_INDICATOR).show();
-        } else {    // hide it
-            $(S_LOADING_INDICATOR).hide(1000);
-        }
-    }
-
     return {
-        showMainStoriesLoading: function() {
-            sillyLoading(true);
-        },
-        
-        hideMainStoriesLoading: function() {
-            sillyLoading(false);
-        },
-        
-        showSideStoriesLoading: function() {
-            sillyLoading(true);
-        },
-        
-        hideSideStoriesLoading: function() {
-            sillyLoading(false);
-        },
-        
         // prepends one or more stories to the beginning of the stream of stories
         //
         // args:
@@ -58,8 +25,6 @@ var ui = (function() {
                 
                 content.prepend(storyHtml);
             });
-            
-            ui.hideMainStoriesLoading();
         },
         
         showStoryDetail: function(story) {

@@ -59,11 +59,6 @@ var client = (function() {
         },
         
         displayStory: function(id) {
-            console.log("display story");
-            
-            // display a loading indicator
-            ui.showMainStoriesLoading();
-            
             // requests the posts and pass in a callback
             blog.post({
                            id: id,
