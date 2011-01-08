@@ -1,5 +1,5 @@
 var state = (function() {
-    var currentState = state.STATE_DEFAULT;
+    var currentState = "default";
     var destinationState;
     var postTransitionQueue = [];
     
@@ -16,15 +16,15 @@ var state = (function() {
     }
     
     return {
-        STATE_DEFAULT = "default",
-        STATE_HOME = "home";
-        STATE_STORY = "story";
+        STATE_DEFAULT: "default",
+        STATE_HOME: "home",
+        STATE_STORY: "story",
 
-        STATE_IN_TRANSITION = "Will you, Quintus? Will I?";
+        STATE_IN_TRANSITION: "Will you, Quintus? Will I?",
         
         transitionState: function(newState) {
             // ensure that the new state isn't STATE_IN_TRANSITION; that's not allowed
-            if (newState == STATE_IN_TRANSITION) return;
+            if (newState == state.STATE_IN_TRANSITION) return;
             
             // avoid transitioning to the same state
             if (newState == currentState) return;
@@ -36,7 +36,7 @@ var state = (function() {
             var transitionFunctionName = "transition" + oldState + "To" + newState;
 
             // get the function and execute it if it exists
-            var transitionFunction = transitions[transitionFunctionName];
+            var transitionFunction = ui[transitionFunctionName];
             if (transitionFunction) {
                 transitionFunction();
             } else {
