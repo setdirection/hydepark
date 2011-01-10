@@ -10,7 +10,7 @@ var blog = (function() {
             pubDate: 'Wed, 17 Nov 2010 19:56:31 +0000',
             tags: ['announcement'],
             excerpt: true,
-            content: 'Yay, Set Direction launched! It is so cool!'
+            content: 'And there it is: Verizon will hold a special event at New York City’s Lincoln Center (Frederick P. Rose Hall) on Jan. 11–next Tuesday. No details on its focus, but sources close to the company tell me this will indeed prove to be the long-rumored Verizon iPhone announcement. Question now is will Apple CEO Steve Jobs join Verizon President and COO Lowell McAdam onstage to make it. Remember, while there’s an enormous amount of interest in the Verizon iPhone, this really isn’t much more than a carrier announcement — for last year’s iPhone. If it were more (e.g., a hardware announcement), you can bet the event would be in Cupertino or San Francisco. Below, the event invite, which I’m posting here despite Verizon’s mandate not to. Just hope it doesn’t result in a personalized data cap. The announcement will be headlined by President and COO Lowell McAdam, but there will likely be a special guest as well. Apple CEO Steve Jobs. While the appearance isn’t 100 percent assured, sources in a position to know tell me that, barring any unforeseen circumstances, Jobs will likely join McAdam onstage in New York when he announces the addition of the iPhone to its handset lineup.'
         }, {
             id: 'ajax-now-html5',
             title: 'Ajax is now HTML5',
@@ -18,8 +18,24 @@ var blog = (function() {
             pubDate: 'Wed, 18 Nov 2010 19:56:31 +0000',
             tags: ['announcement', 'ajax', 'html5'],
             excerpt: true,
-            content: 'Yup, it changed.'
-        }
+            content: 'HTML5 is the best thing that has ever happened to people who have been searching for numerals to put at the end of HTML. 5 has long been known as a holy number in obscure Southern religions around the globe, representing the convergence of syntaxtical phantasmic forces that have plagued the natural treasures of humanity since the Ancients walked our great spinning orb.'
+        },     {
+                id: 'set-direction-launches-you',
+                title: 'Set Direction Launches Awesome Blog',
+                author: 'Ben Galbraith',
+                pubDate: 'Wed, 17 Nov 2010 19:56:31 +0000',
+                tags: ['announcement'],
+                excerpt: true,
+                content: 'And there it is: Verizon will hold a special event at New York City’s Lincoln Center (Frederick P. Rose Hall) on Jan. 11–next Tuesday. No details on its focus, but sources close to the company tell me this will indeed prove to be the long-rumored Verizon iPhone announcement. Question now is will Apple CEO Steve Jobs join Verizon President and COO Lowell McAdam onstage to make it. Remember, while there’s an enormous amount of interest in the Verizon iPhone, this really isn’t much more than a carrier announcement — for last year’s iPhone. If it were more (e.g., a hardware announcement), you can bet the event would be in Cupertino or San Francisco. Below, the event invite, which I’m posting here despite Verizon’s mandate not to. Just hope it doesn’t result in a personalized data cap. The announcement will be headlined by President and COO Lowell McAdam, but there will likely be a special guest as well. Apple CEO Steve Jobs. While the appearance isn’t 100 percent assured, sources in a position to know tell me that, barring any unforeseen circumstances, Jobs will likely join McAdam onstage in New York when he announces the addition of the iPhone to its handset lineup.'
+            }, {
+                id: 'ajax-now-html5-2',
+                title: 'Ajax is now HTML5',
+                author: 'Dion Almaer',
+                pubDate: 'Wed, 18 Nov 2010 19:56:31 +0000',
+                tags: ['announcement', 'ajax', 'html5'],
+                excerpt: true,
+                content: 'HTML5 is the best thing that has ever happened to people who have been searching for numerals to put at the end of HTML. 5 has long been known as a holy number in obscure Southern religions around the globe, representing the convergence of syntaxtical phantasmic forces that have plagued the natural treasures of humanity since the Ancients walked our great spinning orb.'
+            }
     ];
 
     var byid = {};
