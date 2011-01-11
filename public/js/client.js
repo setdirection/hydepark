@@ -121,6 +121,12 @@ var client = (function() {
             });
         },
         
+        displayStoryFromHome: function(storyId) {
+            // check if that story is currently in the DOM
+            var story = $("#" + storyId);
+            
+        },
+        
         displayStory: function(id) {
             // requests the posts and pass in a callback
             blog.post({
