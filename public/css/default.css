@@ -1,3 +1,7 @@
+* {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 #header {
     font: 40pt sans-serif;
 }
@@ -10,21 +14,35 @@
     font: 20pt serif;
 }
 
+a {
+    color: #267FD9;
+}
+.story-headline a {
+    text-decoration: none;
+}
+
 .story-byline {
-    font: 9pt sans-serif;
+    font-size: 13px;
+    color: #A2A2A2;
 }
 
 .story-full {
     margin: 8pt 0 20pt 0;
+    color: #505050;
 }
 
 .story-excerpt {
     margin: 8pt 0;
+    color: #505050;
 }
 
 .story-readmore {
-    margin-bottom: 20pt;
+    display: block;
+    margin-bottom: 1em;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
 }
+
 
 .hidden {
     display: none;
