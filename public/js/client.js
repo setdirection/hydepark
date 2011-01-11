@@ -81,7 +81,7 @@ $(window).bind("popstate", function(e) {
         document.title = state.title;
         client.displayStory(state.story.id);
     } else {
-        document.title = "Set Direction - A Ben and Dion Company"; // put in config somewhere
+        document.title = config.title;
         client.displayStories();
     }
 });

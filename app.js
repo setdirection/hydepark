@@ -1,17 +1,20 @@
 var express = require('express');
-var app = express.createServer();
+var config = require('./public/js/config');
+
+var app = module.exports = express.createServer();
 
 //
 //  CONFIGURATION
 //
 app.configure(function(){
     app.use(express.methodOverride());
-//    app.use(express.bodyDecoder());
+    app.use(express.bodyDecoder());
     app.use(app.router);
     app.use(express.logger());
     app.use(express.staticProvider(__dirname + '/public'));
 
     app.set('views', __dirname + '/public');
+    app.set('view engine', 'ejs');
     app.set('view options', {
         layout: false // we don't need no stinkin' layouts!
     });
@@ -34,12 +37,22 @@ app.configure('production', function(){
 
 app.get("/", function(req, res) {
     res.render('index.html', {
-        locals: { title: 'My Site' }
+        locals: config
     });
 });
 
 app.get("/article/:id", function(req, res) {
-    res.send('no-op');
+    res.render('index.html', {
+        locals: config
+    });
 });
 
-app.listen(3000);
+//
+// RUN SERVER
+//  - Only listen on $ node app.js
+//
+if (!module.parent) {
+  app.listen(3000);
+  console.log("Express server listening on port %d", app.address().port);
+}
+

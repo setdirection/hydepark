@@ -46,12 +46,12 @@ var ui = (function() {
             // TODO make sure the "currentState" object has info it needs to get back to onpopstate
             var htmlTitle = story.title + " on Set Direction";
             document.title = htmlTitle;
-            history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/" + story.id);            
+            history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/article/" + story.id);            
             
             // request the comments for the story
             // TODO: work out the API for this
             
-            ui.hideMainStoriesLoading();
+            //ui.hideMainStoriesLoading();
         },
         
         addStoriesToSide: function(stories) {

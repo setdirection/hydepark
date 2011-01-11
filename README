@@ -1,1 +1,32 @@
-Hyde Park. Here folks shout from the corner
+-----------------------------------------------
+  Hyde Park. Here folks shout from the corner
+-----------------------------------------------
+
+Pre-requisites:
+
+- Install node
+
+http://nodejs.org/#download
+
+(or if you want to track versions)
+http://tjholowaychuk.com/post/524593054/node-version-manager-preview
+
+- Install npm
+
+https://github.com/isaacs/npm
+
+- Install NPM modules
+
+% npm install connect
+% npm install express
+% npm install expresso
+% npm install mongodb
+% npm install mustache
+% npm install request
+% npm install socket.io
+% npm install tweetstream
+% npm install yql
+
+To run the node server:
+
+% NODE_ENV=development node app.js 
