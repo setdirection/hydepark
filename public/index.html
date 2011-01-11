@@ -10,7 +10,7 @@
 
   <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
   <script type="text/javascript" src="/js/utilities.js"></script>
-  <script type="text/javascript" src="/js/mustache-100644.js"></script>
+  <script type="text/javascript" src="/js/mustache-e72b635c.js"></script>
   <script type="text/javascript" src="/js/config.js"></script>
   <script type="text/javascript" src="/js/errorCodes.js"></script>
   <script type="text/javascript" src="/js/ui.js"></script>
@@ -33,7 +33,7 @@
             {{content}}
         </div>
         
-        <a href="/article/{{id}}" class="story-readmore" onclick="client.displayStory('{{id}}'); return false;">read the full story &raquo;</a>
+        <a href="/article/{{id}}" class="story-readmore" onclick="client.displayStoryFromHome('{{id}}'); return false;">read the full story &raquo;</a>
     </div>
     <%={{ }}=%>
   </script>
@@ -58,7 +58,7 @@
 
   <script id="template-story-details" type="text/html">
   {{=<% %>=}}
-    <div id="{{id}}">
+    <div id="{{id}}" class="hidden">
         <div class="story-headline">
             {{title}}
         </div>

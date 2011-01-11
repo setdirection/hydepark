@@ -51,6 +51,16 @@ var client = (function() {
         ui.displayError(errorString);
     };
     
+    function changeStateToStoryDetail(story) {
+        // setup history state
+        // TODO make sure the "currentState" object has info it needs to get back to onpopstate
+        var htmlTitle = story.title + " on Set Direction";
+        document.title = htmlTitle;
+        
+        console.log("Story", story);
+        history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/article/" + story.id);            
+    };
+    
     // handle history
     // TODO: share with the URL parser
     $(window).bind("popstate", function(e) {
@@ -60,13 +70,16 @@ var client = (function() {
         if (state && state.type == "displayStory" && state.story.id) {
             console.log(state.story.id);
             document.title = state.title;
-            client.displayStory(state.story.id);
+            
+            // FIXME: work out the right invocation
+            client.displayStoryFromHome(state.story.id);
         } else if (location.pathname && location.pathname.length > 1) { // location check here
             var articleIdMatch = location.pathname.match(/\/article\/(.+)/);
             if (articleIdMatch === null) { // no article found
                 displayStoryFailure({ type: "no article id", id: articleId });
             } else {
-                client.displayStory(articleIdMatch[1]);
+                // FIXME: work out the right invocation
+                client.displayStoryFromHome(articleIdMatch[1]);
             }
         } else {
             document.title = config.title;
@@ -122,19 +135,52 @@ var client = (function() {
         },
         
         displayStoryFromHome: function(storyId) {
-            // check if that story is currently in the DOM
-            var story = $("#" + storyId);
-            
-        },
-        
-        displayStory: function(id) {
             // requests the posts and pass in a callback
             blog.post({
-                           id: id,
+                           id: storyId,
                     fullStory: true, 
-                    onSuccess: displayStorySuccess,
-                    onFailure: displayStoryFailure
+                    onSuccess: function(story) {
+                        console.log("Story", story);
+                        
+                        // check if that story is currently in the DOM
+                        var $story = $("#" + story.id);
+                        var storyVisible = false;
+                        if ($story) {
+                            // check if the story is visible
+                            storyVisible = util.checkInView($story);
+                            console.log("Story visible: " + storyVisible);
+                        }
+
+                        // TODO: change this
+                        storyVisible = false;
+
+                        if (storyVisible) {
+                            return displayStoryFromHomeFancy(story.id);
+                        }
+
+                        // the story is either not visible or not on the screen, so do a simpler transition
+
+                        // kill all the stories
+                        var content = $(S_MAIN_CONTENT);
+                        content.empty();
+
+                        // add the new story detail block to the main content block
+                        var storyTemplate = $(S_MT_DETAILS).html();
+                        var storyHtml = Mustache.to_html(storyTemplate, story);
+                        content.prepend(storyHtml);
+                        $("#" + story.id).fadeIn();
+                        
+                        // change the url, etc.
+                        changeStateToStoryDetail(story);
+                    },
+                    onFailure: function(errorCode) {
+                        // TODO: error
+                    }
             });
-        }        
+        },
+
+        displayStoryFromHomeFancy: function(storyId) {
+            console.log("Fancy!");
+        }
     }
 })();
