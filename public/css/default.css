@@ -7,6 +7,17 @@
 }
 
 #main-content {
+    width: 80%;
+    border-right: 1px solid #eee;
+    float: left;
+}
+
+#side-content {
+    width: 20%;
+    float: right;
+}
+
+#side-content > div {
     margin: 10px;
 }
 
@@ -27,22 +38,25 @@ a {
 }
 
 .story-full {
-    margin: 8pt 0 20pt 0;
+    margin-top: 1em;
     color: #505050;
 }
 
 .story-excerpt {
-    margin: 8pt 0;
+    margin: 1em 0;
     color: #505050;
 }
 
 .story-readmore {
     display: block;
-    margin-bottom: 1em;
     text-decoration: none;
-    border-bottom: 1px solid #eee;
 }
 
+.homepage-story-container {
+    border-bottom: 1px solid #eee;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
 
 .hidden {
     display: none;

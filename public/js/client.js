@@ -1,6 +1,6 @@
 var client = (function() {
     // selector constants (S == selector, MT == mustache template)
-    var S_MAIN_CONTENT = "#main-content";
+    var S_MAIN_CONTENT = "#main-content > div";
     var S_LOADING_INDICATOR = "#loading"
     var S_MT_STORY = "#template-story";
     var S_MT_EXCERPT = "#template-excerpt";
@@ -86,12 +86,12 @@ var client = (function() {
                         var mainContent = $(S_MAIN_CONTENT);
                         mainContent.empty();
                         
-                        var storyTemplate = $((showFullStory) ? S_MT_STORY : S_MT_EXCERPT).html();
+                        var storyTemplate = $((settings.showFullStory) ? S_MT_STORY : S_MT_EXCERPT).html();
 
                         // add each story to the main page
                         var delay = 0;
                         $.each(data, function(index, story) {
-                            var storyHtml = Mustache.to_html(story);
+                            var storyHtml = Mustache.to_html(storyTemplate, story);
                             mainContent.append(storyHtml);
                             
                             // the templates are hidden initially to permit a nice little fade-in effect
