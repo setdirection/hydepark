@@ -40,7 +40,7 @@ var util = (function() {
     }
 
     return {
-        function checkInView(element) {
+        checkInView: function(element) {
             viewportSize   = getViewportSize();
             viewportOffset = getViewportOffset();
 
@@ -52,8 +52,7 @@ var util = (function() {
                 elementSize   = { height: $element.height(), width: $element.width() },
                 elementOffset = $element.offset(),
                 visiblePartX,
-                visiblePartY,
-                visiblePartsMerged;
+                visiblePartY;
 
             if (elementOffset.top + elementSize.height > elementOffset.top &&
                 elementOffset.top < viewportOffset.top + viewportSize.height &&
@@ -65,7 +64,6 @@ var util = (function() {
                 visiblePartY = (viewportOffset.top > elementOffset.top ?
                     'bottom' : (viewportOffset.top + viewportSize.height) < (elementOffset.top + elementSize.height) ?
                     'top' : 'both');
-                visiblePartsMerged = visiblePartX + "-" + visiblePartY;
                 return true;
             } else {
               return false;
