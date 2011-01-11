@@ -31,10 +31,40 @@ var client = (function() {
     };
     
     // couldn't load story
-    function displayStoryFailure(story) {
+    function displayStoryFailure(failure) {
         // will automatically hide the main stories loading indicator if shown
-        ui.showStoryDetail(story);
+        var errorString;
+
+        if (failure.type == "no article id") {
+            errorString = "No article found with the id " + failure.id + ". Please try again, maybe <a href=''>do a search?</a> or <a href=''>go to the front page</a>, or <a href='javascript:history.back()'>go back to where you came from</a>."
+        } else {
+            errorString = "No article requested or found.";
+        }
+        ui.displayError(errorString);
     };
+    
+    // handle history
+    // TODO: share with the URL parser
+    $(window).bind("popstate", function(e) {
+        console.log("POP goes the weazle! ", state);
+        console.log(location.pathname.length, location.pathname.substr(1));
+        var state = e.originalEvent.state;
+        if (state && state.type == "displayStory" && state.story.id) {
+            console.log(state.story.id);
+            document.title = state.title;
+            client.displayStory(state.story.id);
+        } else if (location.pathname && location.pathname.length > 1) { // location check here
+            var articleIdMatch = location.pathname.match(/\/article\/(.+)/);
+            if (articleIdMatch === null) { // no article found
+                displayStoryFailure({ type: "no article id", id: articleId });
+            } else {
+                client.displayStory(articleIdMatch[1]);
+            }
+        } else {
+            document.title = config.title;
+            client.displayStories();
+        }
+    });
 
     // -- Public Methods
     return {
@@ -66,22 +96,6 @@ var client = (function() {
                     onSuccess: displayStorySuccess,
                     onFailure: displayStoryFailure
             });
-        }
+        }        
     }
 })();
-
-// handle history
-// TODO: share with the URL parser
-$(window).bind("popstate", function(e) {
-    console.log("POP!");
-    var state = e.originalEvent.state;
-    console.log(state);
-    if (state && state.type == "displayStory" && state.story.id) {
-        console.log(state.story.id);
-        document.title = state.title;
-        client.displayStory(state.story.id);
-    } else {
-        document.title = config.title;
-        client.displayStories();
-    }
-});

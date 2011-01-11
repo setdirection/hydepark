@@ -70,6 +70,11 @@ var ui = (function() {
             
         },
         
-        transitionStoryToHome: function(data, callback) {}
+        transitionStoryToHome: function(data, callback) {},
+        
+        displayError: function(errorString) {
+            $("#errors").html(errorString);
+            $("#errors").show('fast');
+        }
     }
 })();

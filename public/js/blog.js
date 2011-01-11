@@ -77,10 +77,13 @@ var blog = (function() {
         post: function(opts) {
             // check for id
             if (opts.id) {
-                postProcessToHandleExcerpts(opts, byid[opts.id]);
-                //opts.onSuccess(byid[opts.id]);
+                if (byid[opts.id]) {
+                    postProcessToHandleExcerpts(opts, byid[opts.id]);
+                } else {
+                    opts.onFailure({type: "no article id", id: opts.id});
+                }
             } else {
-                opts.onFailure();
+                opts.onFailure({type: "nothing given"});
             }
         }
     }
