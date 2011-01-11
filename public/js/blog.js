@@ -1,8 +1,12 @@
 // the API to get blog content
 var blog = (function() {
 
-    // -- mock data
-    var data = [
+    //
+    // MOCK DATA
+    //
+    
+    // Articles
+    var articleData = [
         {
             id: 'set-direction-launches',
             title: 'Set Direction Launches Awesome Blog',
@@ -38,15 +42,53 @@ var blog = (function() {
             }
     ];
 
-    var byid = {};
+    var articleByID = {};
 
     // munge data to create lookup table
-    for (var i in data) {
-        var item = data[i];
+    for (var i in articleData) {
+        var item = articleData[i];
         if (item.id) {
-            byid[item.id] = item;
+            articleByID[item.id] = item;
         }
     }
+    
+    // Firehose items
+    var hoseData = [
+        {
+            id: 'variable-size-bg',
+            title: '',
+            excerpt: 'Variable size background image from @jonathanstark http://jonathanstark.com/blog/2011/01/03/variable-size-background-image/ ^MS',
+            link: 'http://jonathanstark.com/blog/2011/01/03/variable-size-background-image/',
+            type: 'twitter',
+            author: '@webdirections'
+        }, {
+            id: 'fb-comments-new',
+            title: 'Facebook Comments Plugin',
+            excerpt: 'The Comments plugin enables users to easily engage and comment on your site's content — whether it's a web page, article, photo, or video.',
+            link: 'http://developers.facebook.com/docs/reference/plugins/comments(new)/',
+            type: 'link'            
+        }, {
+            id: 'iphone-may-cost-verizon-5-billion',
+            title: 'Phone May Cost Verizon $5 Billion in Subsidies in First Year',
+            excerpt: "Verizon Wireless, set to get Apple Inc.'s iPhone this month after four years of waiting, may spend $3 billion to $5 billion to subsidize customer purchases of the device this year, cutting into profits, analysts say.",
+            link: 'http://www.businessweek.com/news/2011-01-10/iphone-may-cost-verizon-5-billion-in-subsidies-in-first-year.html',
+            type: 'link'            
+        }
+    ];
+    
+    var hoseByID = {};
+
+    // munge data to create lookup table
+    for (var i in hoseByID) {
+        var item = hoseByID[i];
+        if (hoseByID.id) {
+            hoseByID[item.id] = item;
+        }
+    }
+    
+    //
+    // FUNCTIONS
+    //
     
     function postProcessToHandleExcerpts(opts, data) {
         $.each(data, function(index, datum) {
@@ -64,21 +106,46 @@ var blog = (function() {
             // slice mode
             if (opts && (opts.count || opts.offset)) {
                 var offset = opts.offset || 0;
-                var count = opts.count || data.length;
+                var count = opts.count || articleData.length;
 
-                postProcessToHandleExcerpts(opts, data.slice(offset, (offset+count)));
-                //opts.onSuccess(data.slice(offset, (offset+count)));
+                postProcessToHandleExcerpts(opts, articleData.slice(offset, (offset+count)));
+                //opts.onSuccess(articleData.slice(offset, (offset+count)));
             } else { // return it all
-                postProcessToHandleExcerpts(opts, data);
-                //opts.onSuccess(data);
+                postProcessToHandleExcerpts(opts, articleData);
+                //opts.onSuccess(articleData);
             }
         },
     
         post: function(opts) {
             // check for id
             if (opts.id) {
-                if (byid[opts.id]) {
-                    postProcessToHandleExcerpts(opts, byid[opts.id]);
+                if (articleByID[opts.id]) {
+                    postProcessToHandleExcerpts(opts, articleByID[opts.id]);
+                } else {
+                    opts.onFailure({type: "no article id", id: opts.id});
+                }
+            } else {
+                opts.onFailure({type: "nothing given"});
+            }
+        },
+        
+        // opts = { count: x, offset: y }
+        firehosePosts: function(opts) {
+            if (opts && (opts.count || opts.offset)) {
+                var offset = opts.offset || 0;
+                var count = opts.count || hoseData.length;
+
+                opts.onSuccess(hoseData.slice(offset, (offset+count)));
+            } else { // return it all
+                opts.onSuccess(hoseData);
+            }
+        },
+        
+        firehosePost: function(opts) {
+            // check for id
+            if (opts.id) {
+                if (hoseByID[opts.id]) {
+                    opts.onSuccess(hoseByID[opts.id]);
                 } else {
                     opts.onFailure({type: "no article id", id: opts.id});
                 }
