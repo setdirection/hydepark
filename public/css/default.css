@@ -26,3 +26,6 @@
     margin-bottom: 20pt;
 }
 
+.hidden {
+    display: none;
+}
