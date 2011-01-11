@@ -22,7 +22,7 @@
     {{=<% %>=}}
     <div id="{{id}}" class="hidden">
         <div class="story-headline">
-            {{title}}
+            <a href="/article/{{id}}" onclick="client.displayStory('{{id}}'); return false;">{{title}}</a>
         </div>
         
         <div class="story-byline">
@@ -33,9 +33,7 @@
             {{content}}
         </div>
         
-        <div class="story-readmore">
-            <a href="/article/{{id}}" onclick="client.displayStory('{{id}}'); return false;">Click here to read the full story!</a>
-        </div>
+        <a href="/article/{{id}}" class="story-readmore" onclick="client.displayStory('{{id}}'); return false;">read the full story &raquo;</a>
     </div>
     <%={{ }}=%>
   </script>
