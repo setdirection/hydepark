@@ -1,4 +1,12 @@
 var client = (function() {
+    // selector constants (S == selector, MT == mustache template)
+    var S_MAIN_CONTENT = "#main-content";
+    var S_LOADING_INDICATOR = "#loading"
+    var S_MT_STORY = "#template-story";
+    var S_MT_EXCERPT = "#template-excerpt";
+    var S_MT_DETAILS = "#template-story-details";
+    
+    var INITIAL_STORY_FADE_IN_DELAY = 200;
     
     // -- Settings and configuration
     
@@ -43,18 +51,43 @@ var client = (function() {
             // no op
         },
 
-        // performs the initial display of the stories; not used for subsequent displays because those subsequent
-        // displays are added to the content block, whereas these replace any existing content block and show a special
-        // loading indicator
+        // performs the initial display of the stories when the site is loaded
         displayStories: function() {
-            state.transitionState(state.STATE_HOME);
+            // TODO: display some kind of loading indicator
 
             // requests the posts and pass in a callback
             blog.posts({ 
                     fullStory: settings.showFullStory, 
                         count: settings.storiesOnHome, 
-                    onSuccess: displayStoriesSuccess,
-                    onFailure: displayStoriesFailure
+                    onSuccess: function(data) {
+                        // TODO: remove the loading indicator
+                        
+                        // there shouldn't be existing content, but just to be sure, let's nuke it
+                        var mainContent = $(S_MAIN_CONTENT);
+                        mainContent.empty();
+                        
+                        var storyTemplate = $(S_MT_STORY).html();
+                        var excerptTemplate = $(S_MT_EXCERPT).html();
+
+                        // add each story to the main page
+                        var delay = 0;
+                        $.each(data, function(index, story) {
+                            console.log("Okay!");
+
+                            var storyHtml = Mustache.to_html( (story.excerpt) ? excerptTemplate : 
+                                                                                storyTemplate,    story);
+                            mainContent.append(storyHtml);
+                            
+                            // the templates are hidden initially to permit a nice little fade-in effect
+                            var newStorySelector = "#" + story.id;
+                            $(newStorySelector).delay(delay);
+                            delay += INITIAL_STORY_FADE_IN_DELAY; 
+                            $(newStorySelector).fadeIn();
+                        });
+                    },
+                    onFailure: function(errorCode) {
+                        // TODO: implement the error function
+                    }
             });
         },
         
