@@ -78,7 +78,6 @@ var client = (function() {
 
             // requests the posts and pass in a callback
             blog.posts({ 
-                    fullStory: settings.showFullStory, 
                         count: settings.storiesOnHome, 
                     onSuccess: function(data) {
                         // TODO: remove the loading indicator
@@ -87,16 +86,12 @@ var client = (function() {
                         var mainContent = $(S_MAIN_CONTENT);
                         mainContent.empty();
                         
-                        var storyTemplate = $(S_MT_STORY).html();
-                        var excerptTemplate = $(S_MT_EXCERPT).html();
+                        var storyTemplate = $((showFullStory) ? S_MT_STORY : S_MT_EXCERPT).html();
 
                         // add each story to the main page
                         var delay = 0;
                         $.each(data, function(index, story) {
-                            console.log("Okay!");
-
-                            var storyHtml = Mustache.to_html( (story.excerpt) ? excerptTemplate : 
-                                                                                storyTemplate,    story);
+                            var storyHtml = Mustache.to_html(story);
                             mainContent.append(storyHtml);
                             
                             // the templates are hidden initially to permit a nice little fade-in effect
