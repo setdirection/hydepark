@@ -15,7 +15,6 @@ var client = (function() {
         storiesOnHome: 10,
         showFullStory: false
     };
-    
 
     // -- Private methods
 

@@ -41,13 +41,13 @@ var util = (function() {
 
     return {
         checkInView: function(element) {
+            if (!element || element.empty()) {
+                console.log("civ: empty element!")
+                return false;
+            }
+            
             viewportSize   = getViewportSize();
             viewportOffset = getViewportOffset();
-
-            if (!$.contains(document.documentElement, element)) {
-              console.log("civ: not in DOM");  
-              return false;
-            }
 
             var $element      = $(element),
                 elementSize   = { height: $element.height(), width: $element.width() },
