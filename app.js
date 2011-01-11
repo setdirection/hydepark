@@ -14,13 +14,17 @@ app.configure(function(){
     app.use(express.staticProvider(__dirname + '/public'));
 
     app.set('views', __dirname + '/public');
-    app.set('view engine', 'ejs');
+    app.set('view engine', 'mustache');
     app.set('view options', {
         layout: false // we don't need no stinkin' layouts!
     });
 
-    // Use EJS for now
-    app.register('.html', require('ejs'));
+    // Use mustache
+    app.register('.html', {
+        render: function(str, options) {
+            return require('mustache').to_html(str, options.locals);
+        }
+    });
 });
 
 app.configure('development', function(){

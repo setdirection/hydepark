@@ -30,3 +30,14 @@ https://github.com/isaacs/npm
 To run the node server:
 
 % NODE_ENV=development node app.js 
+
+-----------------------------------------------
+ Notes
+-----------------------------------------------
+
+- Since we use mustache on client and server now, we change the delim so the server doesn't render the client comments.
+
+    E.g.
+
+    {{=<% %>=}}
+    <div id="{{id}}">

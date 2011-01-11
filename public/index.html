@@ -1,12 +1,13 @@
 <!doctype html>
 <html>
 <head>
-  <title>Set Direction - A Ben and Dion Company</title>
+  <title>{{title}}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" type="text/css" href="/css/default.css">
+
   <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
   <script type="text/javascript" src="/js/mustache-100644.js"></script>
   <script type="text/javascript" src="/js/config.js"></script>
@@ -17,6 +18,7 @@
   <script type="text/javascript" src="/js/state.js"></script>
 
   <script id="template-excerpt" type="text/html">
+    {{=<% %>=}}
     <div id="{{id}}">
         <div class="story-headline">
             {{title}}
@@ -33,11 +35,12 @@
         <div class="story-readmore">
             <a href="/article/{{id}}" onclick="client.displayStory('{{id}}'); return false;">Click here to read the full story!</a>
         </div>
-        
     </div>
+    <%={{ }}=%>
   </script>
 
   <script id="template-story" type="text/html">
+  {{=<% %>=}}
     <div id="{{id}}">
         <div class="story-headline">
             {{title}}
@@ -51,9 +54,11 @@
             {{content}}
         </div>
     </div>
+    <%={{ }}=%>
   </script>
 
   <script id="template-story-details" type="text/html">
+  {{=<% %>=}}
     <div id="{{id}}">
         <div class="story-headline">
             {{title}}
@@ -71,32 +76,11 @@
         
         </div>
     </div>
+    <%={{ }}=%>
   </script>
-
-  <script>
-    $(document).ready(function() {
-      console.log("loading!");
-        
-      // load settings from some persistent store
-
-      // check hash to know if looking at one post
-
-      // if single-post mode then...
-
-      // else display the home screen
-      // TODO: turned this off as popstate is caused which will do that for us
-      // try {
-      //     client.displayStories();
-      // } catch (e) {
-      //     console.log(e);
-      // }
-    });    
-  </script>
-
 </head>
 
 <body>
-
     <div id="header">Set Direction Blog</div>
     
     <div id="loading" style="display: none">Loading</div>
@@ -118,7 +102,6 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
-    </script>
-    
+    </script>    
 </body>
 </html>
