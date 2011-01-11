@@ -45,6 +45,7 @@ var util = (function() {
             viewportOffset = getViewportOffset();
 
             if (!$.contains(document.documentElement, element)) {
+              console.log("civ: not in DOM");  
               return false;
             }
 
@@ -64,8 +65,10 @@ var util = (function() {
                 visiblePartY = (viewportOffset.top > elementOffset.top ?
                     'bottom' : (viewportOffset.top + viewportSize.height) < (elementOffset.top + elementSize.height) ?
                     'top' : 'both');
+                console.log("civ: visible");  
                 return true;
             } else {
+              console.log("civ: not visible");  
               return false;
             }
         }

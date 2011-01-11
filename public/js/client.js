@@ -19,25 +19,6 @@ var client = (function() {
 
     // -- Private methods
 
-    // TODO: rename the "display" functions here to be "load" instead, reflecting that the UI tier actually does
-    // the displaying
-    // called when the request to retrieve the stories has been successful and passes stories to the UI to display
-    function displayStoriesSuccess(data) {
-        // will automatically hide the main stories loading indicator if shown
-        ui.addStoriesToMain(data);
-    };
-
-    // used when the story retrieval fails and there is no content for the user to see. this is really bad
-    function displayStoriesFailure(errorCode) {
-        ui.newMainStoriesNotLoaded(errorCode);
-    };
-    
-    // called when story detail has been loaded; passes the detail to the UI for display
-    function displayStorySuccess(story) {
-        // will automatically hide the main stories loading indicator if shown
-        ui.showStoryDetail(story);
-    };
-    
     // couldn't load story
     function displayStoryFailure(failure) {
         // will automatically hide the main stories loading indicator if shown
@@ -56,8 +37,6 @@ var client = (function() {
         // TODO make sure the "currentState" object has info it needs to get back to onpopstate
         var htmlTitle = story.title + " on Set Direction";
         document.title = htmlTitle;
-        
-        console.log("Story", story);
         history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/article/" + story.id);            
     };
     
@@ -140,8 +119,6 @@ var client = (function() {
                            id: storyId,
                     fullStory: true, 
                     onSuccess: function(story) {
-                        console.log("Story", story);
-                        
                         // check if that story is currently in the DOM
                         var $story = $("#" + story.id);
                         var storyVisible = false;
