@@ -64,7 +64,7 @@ var blog = (function() {
         }, {
             id: 'fb-comments-new',
             title: 'Facebook Comments Plugin',
-            excerpt: 'The Comments plugin enables users to easily engage and comment on your site's content — whether it's a web page, article, photo, or video.',
+            excerpt: "The Comments plugin enables users to easily engage and comment on your site's content — whether it's a web page, article, photo, or video.",
             link: 'http://developers.facebook.com/docs/reference/plugins/comments(new)/',
             type: 'link'            
         }, {
