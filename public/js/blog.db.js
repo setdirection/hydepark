@@ -1,7 +1,7 @@
 //
-// The API to get blog content - In Memory Mock Edition
+// The API to get blog content - Mongo Edition
 // 
-// To use: make sure that blog.js is loaded instead of blog.db.js
+// To use: make sure that blog.db.js is loaded instead of blog.js
 //
 var blog = (function() {
 
@@ -78,8 +78,7 @@ var blog = (function() {
             title: 'Phone May Cost Verizon $5 Billion in Subsidies in First Year',
             excerpt: "Verizon Wireless, set to get Apple Inc.'s iPhone this month after four years of waiting, may spend $3 billion to $5 billion to subsidize customer purchases of the device this year, cutting into profits, analysts say.",
             link: 'http://www.businessweek.com/news/2011-01-10/iphone-may-cost-verizon-5-billion-in-subsidies-in-first-year.html',
-            type: 'link',
-            lastItem: true            
+            type: 'link'            
         }
     ];
     
@@ -99,24 +98,14 @@ var blog = (function() {
     
     // -- the interface itself
     return {
-        // opts = { count: x, lastId: y }
+        // opts = { count: x, offset: y }
         posts: function(opts) {
             // slice mode
-            if (opts && (opts.count || opts.lastId)) {
-                var offset = 0;
-                
-                if (opts.lastId) {
-                    $.each(articleData, function(index, article) {
-                        if (article.id == opts.lastId) {
-                            offset = index + 1;
-                            return false;
-                        }
-                    });
-                }
-                
+            if (opts && (opts.count || opts.offset)) {
+                var offset = opts.offset || 0;
                 var count = opts.count || articleData.length;
 
-                opts.onSuccess(articleData.slice(offset, (offset + count)));
+                opts.onSuccess(articleData.slice(offset, (offset+count)));
             } else { // return it all
                 opts.onSuccess(articleData);
             }
@@ -137,18 +126,8 @@ var blog = (function() {
         
         // opts = { count: x, offset: y }
         firehosePosts: function(opts) {
-            if (opts && (opts.count || opts.lastId)) {
-                var offset = 0;
-                
-                if (opts.lastId) {
-                    $.each(hoseData, function(index, item) {
-                        if (item.id == opts.lastId) {
-                            offset = index + 1;
-                            return false;
-                        }
-                    });
-                }
-                
+            if (opts && (opts.count || opts.offset)) {
+                var offset = opts.offset || 0;
                 var count = opts.count || hoseData.length;
 
                 opts.onSuccess(hoseData.slice(offset, (offset+count)));
