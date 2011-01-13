@@ -1,20 +1,27 @@
 var client = (function() {
     // selector constants (S == selector, MT == mustache template)
     var S_MAIN_CONTENT = "#main-content > div";
+    var S_FIREHOSE_CONTENT = "#side-content > div";
     var S_LOADING_INDICATOR = "#loading";
     var S_SHOW_MORE_ARTICLES = "#show-more-articles";
+    var S_SHOW_MORE_FIREHOSE_ITEMS = "#show-more-firehose-items";
     var S_MT_STORY = "#template-story";
     var S_MT_EXCERPT = "#template-excerpt";
     var S_MT_DETAILS = "#template-story-details";
     var S_MT_SHOW_MORE_ARTICLES = "#template-show-more-articles";
+    var S_MT_SHOW_MORE_FIREHOSE_ITEMS = "#template-show-more-firehose-items";
+    var S_MT_FIREHOSE_TWITTER = "#template-firehose-twitter";
+    var S_MT_FIREHOSE_LINK = "#template-firehose-link";
     
     var INITIAL_STORY_FADE_IN_DELAY = 200;
+    var INITIAL_FIREHOSE_ITEM_FADE_IN_DELAY = 125;
     
     // -- Settings and configuration
     
     // default settings values; can be overridden by the user
     var settings = {
         storiesOnHome: 2,
+        firehoseItemsOnHome: 1,
         showFullStory: false
     };
 
@@ -44,11 +51,11 @@ var client = (function() {
     // handle history
     // TODO: share with the URL parser
     $(window).bind("popstate", function(e) {
-        console.log("POP goes the weazle! ", state);
-        console.log(location.pathname.length, location.pathname.substr(1));
+        // console.log("POP goes the weazle! ", state);
+        // console.log(location.pathname.length, location.pathname.substr(1));
         var state = e.originalEvent.state;
         if (state && state.type == "displayStory" && state.story.id) {
-            console.log(state.story.id);
+            //console.log(state.story.id);
             document.title = state.title;
             
             // FIXME: work out the right invocation
@@ -64,6 +71,7 @@ var client = (function() {
         } else {
             document.title = config.title;
             client.displayStories();
+            client.displayFirehoseItems();
         }
     });
 
@@ -103,6 +111,8 @@ var client = (function() {
                         var showMore = true;
                         var lastStory;
                         $.each(data, function(index, story) {
+                            lastStory = story;
+                            
                             var storyHtml = Mustache.to_html(storyTemplate, story);
                             mainContent.append(storyHtml);
                             
@@ -112,12 +122,11 @@ var client = (function() {
                             delay += INITIAL_STORY_FADE_IN_DELAY; 
                             $(newStorySelector).fadeIn();
 
-                            lastStory = story;
                             if (story.lastArticle) showMore = false;
                         });
                         
                         // if there's more, show a more link at the bottom
-                        if (showMore) {
+                        if (showMore && lastStory) {
                             var showMoreTemplate = $(S_MT_SHOW_MORE_ARTICLES).html();
                             lastStory.urlId = encodeURI(lastStory.id);
                             var showMoreHtml = Mustache.to_html(showMoreTemplate, lastStory);
@@ -125,6 +134,84 @@ var client = (function() {
 
                             $(S_SHOW_MORE_ARTICLES).delay(delay * 1.2);
                             $(S_SHOW_MORE_ARTICLES).fadeIn();
+                        }
+                        
+                    },
+                    onFailure: function(errorCode) {
+                        // TODO: implement the error function
+                    }
+            });
+        },
+        
+        displayFirehoseItems: function(opts) {
+            opts = opts || {};
+            
+            // TODO: show loading indicator
+            
+            // if show more articles present, nuke it
+            $(S_SHOW_MORE_FIREHOSE_ITEMS).remove();
+            
+            // requests the posts and pass in a callback
+            blog.firehosePosts({ 
+                        count: settings.firehoseItemsOnHome, 
+                       lastId: opts.lastId,
+                    onSuccess: function(data) {
+                        // TODO: remove the loading indicator
+                        
+                        var firehoseContent = $(S_FIREHOSE_CONTENT);
+
+                        // if there are no stories present, nuke any existing content
+                        // NOTE: commented out to support showing more articles                        
+                        // mainContent.empty();
+                        
+                        var twitterTemplate = $(S_MT_FIREHOSE_TWITTER).html();
+                        var linkTemplate = $(S_MT_FIREHOSE_LINK).html();
+
+                        // add each story to the main page
+                        var delay = 0;
+                        var showMore = true;
+                        var lastItem;
+                        $.each(data, function(index, item) {
+                            lastItem = item;
+
+                            var template;
+                            switch (item.type) {
+                                case "twitter":
+                                    template = twitterTemplate;
+                                    break;
+                                case "link":
+                                    template = linkTemplate;
+                                    break;
+                                default:
+                                    template = undefined;
+                            }
+                            
+                            if (!template) {
+                                // TODO: make sure console is always around
+                                console.warn("Firehose item type '" + item.type + "' unsupported (id: " + item.id + ")");
+                                return true;
+                            }
+                            
+                            var itemHtml = Mustache.to_html(template, item);
+                            firehoseContent.append(itemHtml);
+                            
+                            // the templates are hidden initially to permit a nice little fade-in effect
+                            var newItemSelector = "#" + item.id;
+                            $(newItemSelector).delay(delay);
+                            delay += INITIAL_FIREHOSE_ITEM_FADE_IN_DELAY; 
+                            $(newItemSelector).fadeIn();
+
+                            if (item.lastItem) showMore = false;
+                        });
+                        
+                        if (showMore && lastItem) {
+                            var showMoreTemplate = $(S_MT_SHOW_MORE_FIREHOSE_ITEMS).html();
+                            lastItem.urlId = encodeURI(lastItem.id);
+                            var showMoreHtml = Mustache.to_html(showMoreTemplate, lastItem);
+                            firehoseContent.append(showMoreHtml);
+                        
+                            $(S_SHOW_MORE_FIREHOSE_ITEMS).delay(delay * 1.2);
+                            $(S_SHOW_MORE_FIREHOSE_ITEMS).fadeIn();
                         }
                         
                     },

@@ -62,7 +62,23 @@ a {
     display: none;
 }
 
-#show-more-articles {
+#show-more-articles, #show-more-firehose-items {
     margin: 1em;
     text-align: center;
+}
+
+.firehose-item-twitter, .firehose-item-link {
+    margin: 1em 1em 2em 1em;
+    font-size: 10pt;
+}
+
+.firehose-item-author {
+    text-align: right;
+    margin-top: 0.2em;
+    color: gray;
+}
+
+.firehose-item-title {
+    font-weight: bold;
+    margin-bottom: 0.1em;
 }
