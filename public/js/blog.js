@@ -103,7 +103,7 @@ var blog = (function() {
                 if (opts.lastId) {
                     $.each(articleData, function(index, article) {
                         if (article.id == opts.lastId) {
-                            offset = index;
+                            offset = index + 1;
                             return false;
                         }
                     });
