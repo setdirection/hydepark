@@ -39,7 +39,8 @@ var blog = (function() {
             pubDate: 'Wed, 18 Nov 2010 19:56:31 +0000',
             tags: ['announcement', 'ajax', 'html5'],
             excerpt: 'HTML5 is the best thing that has ever happened to people.',
-            content: 'HTML5 is the best thing that has ever happened to people who have been searching for numerals to put at the end of HTML. 5 has long been known as a holy number in obscure Southern religions around the globe, representing the convergence of syntaxtical phantasmic forces that have plagued the natural treasures of humanity since the Ancients walked our great spinning orb.'
+            content: 'HTML5 is the best thing that has ever happened to people who have been searching for numerals to put at the end of HTML. 5 has long been known as a holy number in obscure Southern religions around the globe, representing the convergence of syntaxtical phantasmic forces that have plagued the natural treasures of humanity since the Ancients walked our great spinning orb.',
+            lastArticle: true
             }
     ];
 
