@@ -19,8 +19,18 @@
 
   <script id="template-firehose-twitter" type="text/html">
     {{=<% %>=}}
-    <div id="{{id}}" class="firehose-storylet">
-    
+    <div id="{{id}}" class="firehose-item-twitter hidden">
+        <div class="firehose-item-excerpt">{{excerpt}}</div>
+        <div class="firehose-item-author">{{author}}</div>
+    </div>
+    <%={{ }}=%>
+  </script>
+
+  <script id="template-firehose-link" type="text/html">
+    {{=<% %>=}}
+    <div id="{{id}}" class="firehose-item-link hidden">
+        <div class="firehose-item-title">{{title}}</div>
+        <div class="firehose-item-excerpt">{{excerpt}}</div>
     </div>
     <%={{ }}=%>
   </script>
@@ -28,7 +38,15 @@
   <script id="template-show-more-articles" type="text/html">
     {{=<% %>=}}
     <div id="show-more-articles" class="hidden">
-        <a href="#" onclick="return false;">Show More Articles</a>
+        <a href="/?lastId={{urlId}}" onclick="client.displayStories({ lastId: '{{id}}' }); return false;">Show More Articles</a>
+    </div>
+    <%={{ }}=%>
+  </script>
+
+  <script id="template-show-more-firehose-items" type="text/html">
+    {{=<% %>=}}
+    <div id="show-more-firehose-items" class="hidden">
+        <a href="/?lastFirehoseId={{urlId}}" onclick="client.displayFirehoseItems({ lastId: '{{id}}' }); return false;">Show More</a>
     </div>
     <%={{ }}=%>
   </script>
@@ -108,7 +126,7 @@
 
     <!-- contains the "firehouse" side stream -->
     <div id="side-content">
-        <div>Hello, world!</div>
+        <div></div>
     </div>
 
     <script>    
