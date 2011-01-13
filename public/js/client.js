@@ -20,8 +20,8 @@ var client = (function() {
     
     // default settings values; can be overridden by the user
     var settings = {
-        storiesOnHome: 2,
-        firehoseItemsOnHome: 1,
+        storiesOnHome: 10,
+        firehoseItemsOnHome: 15,
         showFullStory: false
     };
 
