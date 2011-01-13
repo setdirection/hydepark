@@ -156,6 +156,16 @@ var client = (function() {
                         content.prepend(storyHtml);
                         $("#" + story.id).fadeIn();
                         
+                        var script   = document.createElement("script");
+                            script.text = "var idcomments_acct = '65b747c511858417522dbbe2f72ab6ea';var idcomments_post_id = '" + story.id + "';var idcomments_post_url = 'http://setdirection.com/article/" + story.id + "';"
+                        document.body.appendChild(script);
+
+                        content.append("<span id='IDCommentsPostTitle' style='display:none'></span>");
+
+                        var script2   = document.createElement("script");
+                            script2.src = "http://www.intensedebate.com/js/genericCommentWrapperV2.js"
+                        document.body.appendChild(script2);
+
                         // change the url, etc.
                         changeStateToStoryDetail(story);
                     },

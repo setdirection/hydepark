@@ -31,6 +31,8 @@ To run the node server:
 
 % NODE_ENV=development node app.js 
 
+(or set NODE_ENV).
+
 -----------------------------------------------
  Notes
 -----------------------------------------------
@@ -41,3 +43,51 @@ To run the node server:
 
     {{=<% %>=}}
     <div id="{{id}}">
+
+- To run for production we need to bundle everything together. To do this we need to:
+
+  a) make sure all dependencies are in package.json
+  b) run "% npm bundle" to package all of the npm files locally into "node_modules"
+  c) Make sure that the app has: require.paths.unshift('./node_modules');
+  
+- Some helpful production commands and initial setup
+
+  # install the command line utility
+  sudo gem install vmc
+
+  # point it to the live server (instead of a b27.me loopback to localhost)
+  vmc target api.vcloudlabs.com
+  
+  # login to the system with your temp password
+  vmc login
+  
+  # change your password
+  vmc passwd
+  
+  # check our the env
+  vmc info
+  
+  # create a mongodb service
+  vmc create-service mongodb sddb
+
+  # see it done
+  vmc services
+  
+  # push a directory with an app in it (but don't start it yet)
+  vmc push setdirection --no-start
+  
+  # bind the app to the mongodb service
+  vmc bind-service sddb setdirection
+  
+  # start the app
+  vmc start setdirection
+
+  # checkout any error logs
+  vmc crashes
+  vmc crashlogs setdirection
+  
+  # after files have been updated, send them up
+  vmc update setdirection
+  
+  # watch the stats
+  vmc stats setdirection
