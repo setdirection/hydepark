@@ -56,7 +56,6 @@ app.get("/article/:id", function(req, res) {
 //  - Only listen on $ node app.js
 //
 if (!module.parent) {
-  app.listen(3000);
+  app.listen(Number(config.serverport));
   console.log("Express server listening on port %d", app.address().port);
 }
-
