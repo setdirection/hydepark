@@ -1,6 +1,8 @@
 var client = (function() {
     // selector constants (S == selector, MT == mustache template)
-    var S_MAIN_CONTENT = "#main-content > div";
+    var S_MAIN_CONTENT = "#main-content";
+    var S_STORIES_CONTENT = "#stories";
+    var S_STORY_CONTENT = "#story";
     var S_FIREHOSE_CONTENT = "#side-content > div";
     var S_LOADING_INDICATOR = "#loading";
     var S_SHOW_MORE_ARTICLES = "#show-more-articles";
@@ -59,7 +61,7 @@ var client = (function() {
             document.title = state.title;
             
             // FIXME: work out the right invocation
-            client.displayStoryFromHome(state.story.id);
+            client.displayStoriesFromStory(state.story.id);
         } else if (location.pathname && location.pathname.length > 1) { // location check here
             var articleIdMatch = location.pathname.match(/\/article\/(.+)/);
             if (articleIdMatch === null) { // no article found
@@ -71,8 +73,8 @@ var client = (function() {
         } else {
             document.title = config.title;
             client.displayStories();
-            client.displayFirehoseItems();
         }
+        client.displayFirehoseItems();
     });
 
     // -- Public Methods
@@ -98,11 +100,7 @@ var client = (function() {
                     onSuccess: function(data) {
                         // TODO: remove the loading indicator
                         
-                        var mainContent = $(S_MAIN_CONTENT);
-
-                        // if there are no stories present, nuke any existing content
-                        // NOTE: commented out to support showing more articles                        
-                        // mainContent.empty();
+                        var storiesContent = $(S_STORIES_CONTENT);
                         
                         var storyTemplate = $((settings.showFullStory) ? S_MT_STORY : S_MT_EXCERPT).html();
 
@@ -114,7 +112,7 @@ var client = (function() {
                             lastStory = story;
                             
                             var storyHtml = Mustache.to_html(storyTemplate, story);
-                            mainContent.append(storyHtml);
+                            storiesContent.append(storyHtml);
                             
                             // the templates are hidden initially to permit a nice little fade-in effect
                             var newStorySelector = "#" + story.id;
@@ -130,7 +128,7 @@ var client = (function() {
                             var showMoreTemplate = $(S_MT_SHOW_MORE_ARTICLES).html();
                             lastStory.urlId = encodeURI(lastStory.id);
                             var showMoreHtml = Mustache.to_html(showMoreTemplate, lastStory);
-                            mainContent.append(showMoreHtml);
+                            storiesContent.append(showMoreHtml);
 
                             $(S_SHOW_MORE_ARTICLES).delay(delay * 1.2);
                             $(S_SHOW_MORE_ARTICLES).fadeIn();
@@ -141,6 +139,20 @@ var client = (function() {
                         // TODO: implement the error function
                     }
             });
+        },
+        
+        displayStoriesFromStory: function(opts) {
+            // check if the stories are kicking around hidden
+            var anyStory = $(S_STORIES_CONTENT + " .story-headline");
+            if (anyStory.length = 0) {
+                displayStories();
+            } else {
+                // if so, redisplay them; otherwise, gotta reload the homepage!
+                var story = $(S_STORY_CONTENT);
+                story.fadeOut(200, function() {
+                    $(S_STORIES_CONTENT).fadeIn(200);
+                });
+            }
         },
         
         displayFirehoseItems: function(opts) {
@@ -228,42 +240,43 @@ var client = (function() {
                     fullStory: true, 
                     onSuccess: function(story) {
                         // check if that story is currently in the DOM
-                        var $story = $("#" + story.id);
-                        var storyVisible = false;
-                        if ($story) {
-                            // check if the story is visible
-                            storyVisible = util.checkInView($story);
-                            console.log("Story visible: " + storyVisible);
-                        }
+                        // var $story = $("#" + story.id);
+                        // var storyVisible = false;
+                        // if ($story) {
+                        //     // check if the story is visible
+                        //     storyVisible = util.checkInView($story);
+                        //     console.log("Story visible: " + storyVisible);
+                        // }
+                        // 
+                        // // TODO: change this
+                        // storyVisible = false;
 
-                        // TODO: change this
-                        storyVisible = false;
+                        // if (storyVisible) {
+                        //     return displayStoryFromHomeFancy(story.id);
+                        // }
 
-                        if (storyVisible) {
-                            return displayStoryFromHomeFancy(story.id);
-                        }
-
-                        // the story is either not visible or not on the screen, so do a simpler transition
-
-                        // kill all the stories
-                        var content = $(S_MAIN_CONTENT);
-                        content.empty();
-
-                        // add the new story detail block to the main content block
-                        var storyTemplate = $(S_MT_DETAILS).html();
-                        var storyHtml = Mustache.to_html(storyTemplate, story);
-                        content.prepend(storyHtml);
-                        $("#" + story.id).fadeIn();
+                        var storyContent = $(S_STORY_CONTENT);
+                        storyContent.empty();
+                        storyContent.show();
                         
-                        var script   = document.createElement("script");
-                            script.text = "var idcomments_acct = '65b747c511858417522dbbe2f72ab6ea';var idcomments_post_id = '" + story.id + "';var idcomments_post_url = 'http://setdirection.com/article/" + story.id + "';"
-                        document.body.appendChild(script);
+                        $(S_STORIES_CONTENT).fadeOut(200, function() {
+                            // add the new story detail block to the main content block
+                            var storyTemplate = $(S_MT_DETAILS).html();
+                            var storyHtml = Mustache.to_html(storyTemplate, story);
+                            storyContent.prepend(storyHtml);
+                            $("#story-" + story.id).fadeIn();
+                        });
 
-                        content.append("<span id='IDCommentsPostTitle' style='display:none'></span>");
-
-                        var script2   = document.createElement("script");
-                            script2.src = "http://www.intensedebate.com/js/genericCommentWrapperV2.js"
-                        document.body.appendChild(script2);
+                        
+                        // var script   = document.createElement("script");
+                        //     script.text = "var idcomments_acct = '65b747c511858417522dbbe2f72ab6ea';var idcomments_post_id = '" + story.id + "';var idcomments_post_url = 'http://setdirection.com/article/" + story.id + "';"
+                        // document.body.appendChild(script);
+                        // 
+                        // content.append("<span id='IDCommentsPostTitle' style='display:none'></span>");
+                        // 
+                        // var script2   = document.createElement("script");
+                        //     script2.src = "http://www.intensedebate.com/js/genericCommentWrapperV2.js"
+                        // document.body.appendChild(script2);
 
                         // change the url, etc.
                         changeStateToStoryDetail(story);

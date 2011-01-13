@@ -91,7 +91,7 @@
 
   <script id="template-story-details" type="text/html">
   {{=<% %>=}}
-    <div id="{{id}}" class="hidden">
+    <div id="story-{{id}}" class="hidden">
         <div class="story-headline">
             {{title}}
         </div>
@@ -121,7 +121,8 @@
     
     <!-- contains the "main" content of the page: stories or a story detail -->
     <div id="main-content">
-        <div></div>
+        <div id="stories"></div>
+        <div id="story"></div>
     </div>
 
     <!-- contains the "firehouse" side stream -->
