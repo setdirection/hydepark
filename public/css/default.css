@@ -70,6 +70,7 @@ a {
 .firehose-item-twitter, .firehose-item-link {
     margin: 1em 1em 2em 1em;
     font-size: 10pt;
+    word-wrap: break-word;
 }
 
 .firehose-item-author {
