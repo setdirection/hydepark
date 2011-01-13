@@ -19,7 +19,7 @@
 
   <script id="template-excerpt" type="text/html">
     {{=<% %>=}}
-    <div id="{{id}}" class="hidden">
+    <div id="{{id}}" class="homepage-story-container hidden">
         <div class="story-headline">
             <a href="/article/{{id}}" onclick="client.displayStoryFromHome('{{id}}'); return false;">{{title}}</a>
         </div>
@@ -29,7 +29,7 @@
         </div>
         
         <div class="story-excerpt">
-            {{content}}
+            {{excerpt}}
         </div>
         
         <a href="/article/{{id}}" class="story-readmore" onclick="client.displayStoryFromHome('{{id}}'); return false;">read the full story &raquo;</a>
@@ -39,9 +39,9 @@
 
   <script id="template-story" type="text/html">
   {{=<% %>=}}
-    <div id="{{id}}" class="hidden">
+    <div id="{{id}}" class="homepage-story-container hidden">
         <div class="story-headline">
-            {{title}}
+            <a href="/article/{{id}}" onclick="client.displayStoryFromHome('{{id}}'); return false;">{{title}}</a>
         </div>
         
         <div class="story-byline">
@@ -86,10 +86,14 @@
     <div id="errors" style="display: none"></div>
     
     <!-- contains the "main" content of the page: stories or a story detail -->
-    <div id="main-content"></div>
+    <div id="main-content">
+        <div></div>
+    </div>
 
     <!-- contains the "firehouse" side stream -->
-    <div id="side-content"></div>
+    <div id="side-content">
+        <div>Hello, world!</div>
+    </div>
 
     <script>    
     // -- Google Analytics
