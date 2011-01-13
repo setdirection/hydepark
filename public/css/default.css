@@ -8,7 +8,6 @@
 
 #main-content {
     width: 80%;
-    border-right: 1px solid #eee;
     float: left;
 }
 
@@ -53,6 +52,7 @@ a {
 }
 
 .homepage-story-container {
+    border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
     padding-top: 1em;
     padding-bottom: 1em;
@@ -60,4 +60,9 @@ a {
 
 .hidden {
     display: none;
+}
+
+#show-more-articles {
+    margin: 1em;
+    text-align: center;
 }

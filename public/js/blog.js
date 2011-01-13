@@ -34,6 +34,7 @@ var blog = (function() {
         }, {
             id: 'ajax-now-html5',
             title: 'Ajax is now HTML5',
+            lastArticle: true,
             author: 'Dion Almaer',
             pubDate: 'Wed, 18 Nov 2010 19:56:31 +0000',
             tags: ['announcement', 'ajax', 'html5'],
@@ -90,15 +91,6 @@ var blog = (function() {
     // FUNCTIONS
     //
     
-    function postProcessToHandleExcerpts(opts, data) {
-        $.each(data, function(index, datum) {
-            if (opts.fullStory) {
-                datum.excerpt = false;
-            }
-        });
-        opts.onSuccess(data);
-    }
-
     // -- the interface itself
     return {
         // opts = { count: x, offset: y }
@@ -108,11 +100,9 @@ var blog = (function() {
                 var offset = opts.offset || 0;
                 var count = opts.count || articleData.length;
 
-                postProcessToHandleExcerpts(opts, articleData.slice(offset, (offset+count)));
-                //opts.onSuccess(articleData.slice(offset, (offset+count)));
+                opts.onSuccess(articleData.slice(offset, (offset+count)));
             } else { // return it all
-                postProcessToHandleExcerpts(opts, articleData);
-                //opts.onSuccess(articleData);
+                opts.onSuccess(articleData);
             }
         },
     
@@ -120,7 +110,7 @@ var blog = (function() {
             // check for id
             if (opts.id) {
                 if (articleByID[opts.id]) {
-                    postProcessToHandleExcerpts(opts, articleByID[opts.id]);
+                    opts.onSuccess(articleByID[opts.id]);
                 } else {
                     opts.onFailure({type: "no article id", id: opts.id});
                 }

@@ -1,10 +1,12 @@
 var client = (function() {
     // selector constants (S == selector, MT == mustache template)
     var S_MAIN_CONTENT = "#main-content > div";
-    var S_LOADING_INDICATOR = "#loading"
+    var S_LOADING_INDICATOR = "#loading";
+    var S_SHOW_MORE_ARTICLES = "#show-more-articles";
     var S_MT_STORY = "#template-story";
     var S_MT_EXCERPT = "#template-excerpt";
     var S_MT_DETAILS = "#template-story-details";
+    var S_MT_SHOW_MORE_ARTICLES = "#template-show-more-articles";
     
     var INITIAL_STORY_FADE_IN_DELAY = 200;
     
@@ -12,7 +14,7 @@ var client = (function() {
     
     // default settings values; can be overridden by the user
     var settings = {
-        storiesOnHome: 10,
+        storiesOnHome: 3,
         showFullStory: false
     };
 
@@ -90,6 +92,8 @@ var client = (function() {
 
                         // add each story to the main page
                         var delay = 0;
+                        var showMore = true;
+                        var lastStory;
                         $.each(data, function(index, story) {
                             var storyHtml = Mustache.to_html(storyTemplate, story);
                             mainContent.append(storyHtml);
@@ -99,7 +103,18 @@ var client = (function() {
                             $(newStorySelector).delay(delay);
                             delay += INITIAL_STORY_FADE_IN_DELAY; 
                             $(newStorySelector).fadeIn();
+
+                            lastStory = story;
+                            if (story.lastArticle) showMore = false;
                         });
+                        
+                        // if there's more, show a more link at the bottom
+                        var showMoreTemplate = $(S_MT_SHOW_MORE_ARTICLES).html();
+                        var showMoreHtml = Mustache.to_html(showMoreTemplate, lastStory);
+                        mainContent.append(showMoreHtml);
+                        
+                        $(S_SHOW_MORE_ARTICLES).delay(delay * 1.2);
+                        $(S_SHOW_MORE_ARTICLES).fadeIn();
                     },
                     onFailure: function(errorCode) {
                         // TODO: implement the error function
