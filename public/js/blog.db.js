@@ -1,7 +1,7 @@
 //
-// The API to get blog content - In Memory Mock Edition
+// The API to get blog content - Mongo Edition
 // 
-// To use: make sure that blog.js is loaded instead of blog.db.js
+// To use: make sure that blog.db.js is loaded instead of blog.js
 //
 var blog = (function() {
 
