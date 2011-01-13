@@ -94,14 +94,24 @@ var blog = (function() {
     
     // -- the interface itself
     return {
-        // opts = { count: x, offset: y }
+        // opts = { count: x, lastId: y }
         posts: function(opts) {
             // slice mode
-            if (opts && (opts.count || opts.offset)) {
-                var offset = opts.offset || 0;
+            if (opts && (opts.count || opts.lastId)) {
+                var offset = 0;
+                
+                if (opts.lastId) {
+                    $.each(articleData, function(index, article) {
+                        if (article.id == opts.lastId) {
+                            offset = index;
+                            return false;
+                        }
+                    });
+                }
+                
                 var count = opts.count || articleData.length;
 
-                opts.onSuccess(articleData.slice(offset, (offset+count)));
+                opts.onSuccess(articleData.slice(offset, (offset + count)));
             } else { // return it all
                 opts.onSuccess(articleData);
             }

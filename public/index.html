@@ -28,7 +28,7 @@
   <script id="template-show-more-articles" type="text/html">
     {{=<% %>=}}
     <div id="show-more-articles" class="hidden">
-        <a href="#" onclick="return false;">Show More Articles</a>
+        <a href="/?lastId={{urlId}}" onclick="client.displayStories({ lastId: '{{id}}' }); return false;">Show More Articles</a>
     </div>
     <%={{ }}=%>
   </script>

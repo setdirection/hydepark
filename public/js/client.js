@@ -14,7 +14,7 @@ var client = (function() {
     
     // default settings values; can be overridden by the user
     var settings = {
-        storiesOnHome: 3,
+        storiesOnHome: 2,
         showFullStory: false
     };
 
@@ -75,18 +75,26 @@ var client = (function() {
         },
 
         // performs the initial display of the stories when the site is loaded
-        displayStories: function() {
+        displayStories: function(opts) {
+            opts = opts || {};
+            
             // TODO: display some kind of loading indicator
-
+            
+            // if show more articles present, nuke it
+            $(S_SHOW_MORE_ARTICLES).remove();
+            
             // requests the posts and pass in a callback
             blog.posts({ 
                         count: settings.storiesOnHome, 
+                       lastId: opts.lastId,
                     onSuccess: function(data) {
                         // TODO: remove the loading indicator
                         
-                        // there shouldn't be existing content, but just to be sure, let's nuke it
                         var mainContent = $(S_MAIN_CONTENT);
-                        mainContent.empty();
+
+                        // if there are no stories present, nuke any existing content
+                        // NOTE: commented out to support showing more articles                        
+                        // mainContent.empty();
                         
                         var storyTemplate = $((settings.showFullStory) ? S_MT_STORY : S_MT_EXCERPT).html();
 
@@ -109,12 +117,16 @@ var client = (function() {
                         });
                         
                         // if there's more, show a more link at the bottom
-                        var showMoreTemplate = $(S_MT_SHOW_MORE_ARTICLES).html();
-                        var showMoreHtml = Mustache.to_html(showMoreTemplate, lastStory);
-                        mainContent.append(showMoreHtml);
+                        if (showMore) {
+                            var showMoreTemplate = $(S_MT_SHOW_MORE_ARTICLES).html();
+                            lastStory.urlId = encodeURI(lastStory.id);
+                            var showMoreHtml = Mustache.to_html(showMoreTemplate, lastStory);
+                            mainContent.append(showMoreHtml);
+
+                            $(S_SHOW_MORE_ARTICLES).delay(delay * 1.2);
+                            $(S_SHOW_MORE_ARTICLES).fadeIn();
+                        }
                         
-                        $(S_SHOW_MORE_ARTICLES).delay(delay * 1.2);
-                        $(S_SHOW_MORE_ARTICLES).fadeIn();
                     },
                     onFailure: function(errorCode) {
                         // TODO: implement the error function
