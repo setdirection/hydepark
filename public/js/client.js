@@ -49,7 +49,8 @@ var client = (function() {
         // TODO make sure the "currentState" object has info it needs to get back to onpopstate
         var htmlTitle = story.title + " on Set Direction";
         document.title = htmlTitle;
-        history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/article/" + story.id);            
+        history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/article/" + story.id);
+        console.log("PUSH: ", {type: "displayStory", story: story, title: htmlTitle});
     };
     
     function insertCommentsViaIntenseDebate(story, content) {
@@ -80,35 +81,41 @@ var client = (function() {
     // handle history
     // TODO: share with the URL parser
     $(window).bind("popstate", function(e) {
+        console.log(e);
+        var state = e.originalEvent.state;
+        
         console.log("POP goes the weazle! ", state);
         console.log(location.pathname.length, location.pathname.substr(1));
-
-        var state = e.originalEvent.state;
+        
         if (state && state.type == "displayStory" && state.story.id) {
-            console.log("one");
+            console.log("displayStoryFromHome: " + state);
             
             //console.log(state.story.id);
             document.title = state.title;
             
             // FIXME: work out the right invocation
-            client.displayStoriesFromStory(state.story.id);
+            client.displayStoryFromHome(state.story.id);
         } else if (location.pathname && location.pathname.length > 1) { // location check here
-            console.log("two");
+            console.log("real pathname: " + location.pathname);
             
             var articleIdMatch = location.pathname.match(/\/article\/(.+)/);
             if (articleIdMatch === null) { // no article found
                 displayStoryFailure({ type: "no article id", id: articleId });
             } else {
-                console.log("three");
+                console.log("display from home: " + articleIdMatch[1]);
 
                 // FIXME: work out the right invocation
                 client.displayStoryFromHome(articleIdMatch[1]);
             }
         } else {
-            console.log("four");
-
+            console.log("display all of them");
             document.title = config.title;
-            client.displayStories();
+
+            if ($("body").hasClass("moveRight")) {
+                client.displayStoriesFromStory();
+            } else {
+                client.displayStories();
+            }
         }
         client.displayFirehoseItems();
     });
