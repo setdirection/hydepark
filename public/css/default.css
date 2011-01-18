@@ -58,16 +58,31 @@ body.moveRight #story-page {
     border-right: 1px solid #eee;
 }
 
-#story {
-    padding: 10pt;
-}
-
 #side-content {
     width: 20%;
     float: right;
 }
 
 #items {
+    padding: 10pt;
+}
+
+#story-content {
+    float: left;
+    width: 80%;
+}
+
+#story {
+    padding: 10pt;
+    border-right: 1px solid #eee;
+}
+
+#story-side-content {
+    width: 20%;
+    float: right;
+}
+
+#story-items {
     padding: 10pt;
 }
 
@@ -111,13 +126,17 @@ a {
     display: none;
 }
 
+.current-story-small {
+    background: yellow;
+}
+
 #show-more-articles, #show-more-firehose-items {
     margin: 1em;
     text-align: center;
 }
 
-.firehose-item-twitter, .firehose-item-link {
-    margin: 1em 1em 2em 1em;
+.firehose-item-twitter, .firehose-item-link, .story-small {
+    padding: 1em 1em 2em 1em;
     font-size: 10pt;
     word-wrap: break-word;
 }
@@ -128,7 +147,7 @@ a {
     color: gray;
 }
 
-.firehose-item-title {
+.firehose-item-title, .story-small-headline {
     font-weight: bold;
     margin-bottom: 0.1em;
 }
