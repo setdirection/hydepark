@@ -88,13 +88,13 @@ var client = (function() {
         console.log(location.pathname.length, location.pathname.substr(1));
         
         if (state && state.type == "displayStory" && state.story.id) {
-            console.log("displayStoryFromHome: " + state);
+            console.log("displayStoryFromHome: ", state);
             
             //console.log(state.story.id);
             document.title = state.title;
             
             // FIXME: work out the right invocation
-            client.displayStoryFromHome(state.story.id);
+            client.displayStoryFromHome(state.story.id, true);
         } else if (location.pathname && location.pathname.length > 1) { // location check here
             console.log("real pathname: " + location.pathname);
             
@@ -105,7 +105,7 @@ var client = (function() {
                 console.log("display from home: " + articleIdMatch[1]);
 
                 // FIXME: work out the right invocation
-                client.displayStoryFromHome(articleIdMatch[1]);
+                client.displayStoryFromHome(articleIdMatch[1], true);
             }
         } else {
             console.log("display all of them");
@@ -266,7 +266,7 @@ var client = (function() {
             });
         },
         
-        displayStoryFromHome: function(storyId) {
+        displayStoryFromHome: function(storyId, fromPop) {
             // requests the posts and pass in a callback
             blog.post({
                            id: storyId,
@@ -301,7 +301,7 @@ var client = (function() {
                         //insertCommentsViaDisqus(story, storyContent);
 
                         // change the url, etc.
-                        changeStateToStoryDetail(story);
+                        if(!fromPop) changeStateToStoryDetail(story);
                         
                         // TODO: change settings to ensure same stories on main page are displayed
                         // in the sidebar; rely on blog to do the caching
