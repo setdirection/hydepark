@@ -88,13 +88,13 @@ var client = (function() {
         console.log(location.pathname.length, location.pathname.substr(1));
         
         if (state && state.type == "displayStory" && state.story.id) {
-            console.log("displayStoriesFromStory: " + state);
+            console.log("displayStoryFromHome: " + state);
             
             //console.log(state.story.id);
             document.title = state.title;
             
             // FIXME: work out the right invocation
-            client.displayStoriesFromStory(state.story.id);
+            client.displayStoryFromHome(state.story.id);
         } else if (location.pathname && location.pathname.length > 1) { // location check here
             console.log("real pathname: " + location.pathname);
             
