@@ -302,6 +302,7 @@ var client = (function() {
                                     count: settings.storiesOnHome, 
                                 onSuccess: function(data) {
                                     var storiesContent = $(S_SMALL_STORIES_CONTENT);
+                                    storiesContent.empty();
 
                                     var storyTemplate = $(S_MT_STORY_SMALL).html();
 
