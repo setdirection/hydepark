@@ -320,9 +320,12 @@ var client = (function() {
                                         lastStory = story;
 
                                         if (storyId == story.id) story.specialClass = "current-story-small";
-
                                         var storyHtml = Mustache.to_html(storyTemplate, story);
+                                        story.specialClass = undefined;
+                                        
                                         storiesContent.append(storyHtml);
+                                        
+                                        
 
                                         if (story.lastArticle) showMore = false;
                                     });
