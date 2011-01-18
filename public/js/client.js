@@ -3,10 +3,11 @@ var client = (function() {
     var S_MAIN_CONTENT = "#main-content";
     var S_STORIES_CONTENT = "#stories";
     var S_STORY_CONTENT = "#story";
-    var S_FIREHOSE_CONTENT = "#side-content > div";
+    var S_FIREHOSE_CONTENT = "#items";
     var S_LOADING_INDICATOR = "#loading";
     var S_SHOW_MORE_ARTICLES = "#show-more-articles";
     var S_SHOW_MORE_FIREHOSE_ITEMS = "#show-more-firehose-items";
+    var S_SMALL_STORIES_CONTENT = "#story-items";
     var S_MT_STORY = "#template-story";
     var S_MT_EXCERPT = "#template-excerpt";
     var S_MT_DETAILS = "#template-story-details";
@@ -14,6 +15,7 @@ var client = (function() {
     var S_MT_SHOW_MORE_FIREHOSE_ITEMS = "#template-show-more-firehose-items";
     var S_MT_FIREHOSE_TWITTER = "#template-firehose-twitter";
     var S_MT_FIREHOSE_LINK = "#template-firehose-link";
+    var S_MT_STORY_SMALL = "#template-story-small";
     
     var INITIAL_STORY_FADE_IN_DELAY = 200;
     var INITIAL_FIREHOSE_ITEM_FADE_IN_DELAY = 125;
@@ -293,6 +295,40 @@ var client = (function() {
 
                         // change the url, etc.
                         changeStateToStoryDetail(story);
+                        
+                        // TODO: change settings to ensure same stories on main page are displayed
+                        // in the sidebar; rely on blog to do the caching
+                        blog.posts({ 
+                                    count: settings.storiesOnHome, 
+                                onSuccess: function(data) {
+                                    var storiesContent = $(S_SMALL_STORIES_CONTENT);
+
+                                    var storyTemplate = $(S_MT_STORY_SMALL).html();
+
+                                    // add each story to the main page
+                                    var showMore = true;
+                                    var lastStory;
+                                    $.each(data, function(index, story) {
+                                        lastStory = story;
+
+                                        if (storyId == story.id) story.specialClass = "current-story-small";
+
+                                        var storyHtml = Mustache.to_html(storyTemplate, story);
+                                        storiesContent.append(storyHtml);
+
+                                        if (story.lastArticle) showMore = false;
+                                    });
+
+                                    // if there's more, show a more link at the bottom
+                                    if (showMore && lastStory) {
+                                        // TODO: implement me
+                                    }
+
+                                },
+                                onFailure: function(errorCode) {
+                                    // TODO: implement the error function
+                                }
+                        });
                     },
                     onFailure: function(errorCode) {
                         // TODO: error

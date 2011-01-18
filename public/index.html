@@ -17,6 +17,15 @@
   <script type="text/javascript" src="/js/blog.js"></script>
   <script type="text/javascript" src="/js/client.js"></script>
 
+  <script id="template-story-small" type="text/html">
+    {{=<% %>=}}
+    <div id="small-{{id}}" class="story-small {{specialClass}}">
+        <div class="story-small-headline">{{title}}</div>
+        <div class="story-small-excerpt">{{excerpt}}</div>
+    </div>
+    <%={{ }}=%>
+  </script>
+
   <script id="template-firehose-twitter" type="text/html">
     {{=<% %>=}}
     <div id="{{id}}" class="firehose-item-twitter hidden">
@@ -133,7 +142,15 @@
         </div>
         
         <div id="story-page">
-            <div id="story"></div>
+
+            <div id="story-content">
+                <div id="story"></div>
+            </div>
+
+            <div id="story-side-content">
+                <div id="story-items"></div>
+            </div>
+
         </div>
 
     <script>    
