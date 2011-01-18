@@ -48,8 +48,8 @@ var client = (function() {
         // setup history state
         // TODO make sure the "currentState" object has info it needs to get back to onpopstate
         var htmlTitle = story.title + " on Set Direction";
-        document.title = htmlTitle;
         history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/article/" + story.id);
+        document.title = htmlTitle;
         console.log("PUSH: ", {type: "displayStory", story: story, title: htmlTitle});
     };
     
