@@ -50,6 +50,31 @@ var client = (function() {
         history.pushState({type: "displayStory", story: story, title: htmlTitle}, htmlTitle, "/article/" + story.id);            
     };
     
+    function insertCommentsViaIntenseDebate(story, content) {
+        var script   = document.createElement("script");
+            script.text = "var idcomments_acct = '65b747c511858417522dbbe2f72ab6ea';var idcomments_post_id = '" + story.id + "';var idcomments_post_url = 'http://setdirection.com/article/" + story.id + "';"
+        document.body.appendChild(script);
+        
+        content.append("<span id='IDCommentsPostTitle' style='display:none'></span>");
+        
+        var script2   = document.createElement("script");
+            script2.src = "http://www.intensedebate.com/js/genericCommentWrapperV2.js"
+        document.body.appendChild(script2);        
+    }
+    
+    function insertCommentsViaDisqus(story, content) {
+        content.append('<div id="disqus_thread"></div>');
+        
+        var script   = document.createElement("script");
+            script.text = "var disqus_shortname = 'set-direction';" +
+                "var disqus_identifier = '" + story.id + "';" +
+                ((config.type == "development") ? "var disqus_developer = 1;" : "") +
+                "var disqus_url = 'http://setdirection.com/article/" + story.id + "';" +
+                "(function() { var dsq = document.createElement('script'); dsq.async = true; dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';" + 
+                "(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();";
+        document.body.appendChild(script);        
+    }
+    
     // handle history
     // TODO: share with the URL parser
     $(window).bind("popstate", function(e) {
@@ -267,16 +292,8 @@ var client = (function() {
                             $("#story-" + story.id).fadeIn();
                         });
 
-                        
-                        // var script   = document.createElement("script");
-                        //     script.text = "var idcomments_acct = '65b747c511858417522dbbe2f72ab6ea';var idcomments_post_id = '" + story.id + "';var idcomments_post_url = 'http://setdirection.com/article/" + story.id + "';"
-                        // document.body.appendChild(script);
-                        // 
-                        // content.append("<span id='IDCommentsPostTitle' style='display:none'></span>");
-                        // 
-                        // var script2   = document.createElement("script");
-                        //     script2.src = "http://www.intensedebate.com/js/genericCommentWrapperV2.js"
-                        // document.body.appendChild(script2);
+                        // put comments into the story
+                        insertCommentsViaDisqus(story, storyContent);
 
                         // change the url, etc.
                         changeStateToStoryDetail(story);

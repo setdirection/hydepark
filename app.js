@@ -27,11 +27,13 @@ app.configure(function(){
     });
 });
 
-app.configure('development', function(){
+app.configure('development', function() {
+    config.type = 'development';
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-app.configure('production', function(){
+app.configure('production', function() {
+    config.type = 'production';
     app.use(express.errorHandler());
 });
 
