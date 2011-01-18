@@ -78,24 +78,33 @@ var client = (function() {
     // handle history
     // TODO: share with the URL parser
     $(window).bind("popstate", function(e) {
-        // console.log("POP goes the weazle! ", state);
-        // console.log(location.pathname.length, location.pathname.substr(1));
+        console.log("POP goes the weazle! ", state);
+        console.log(location.pathname.length, location.pathname.substr(1));
+
         var state = e.originalEvent.state;
         if (state && state.type == "displayStory" && state.story.id) {
+            console.log("one");
+            
             //console.log(state.story.id);
             document.title = state.title;
             
             // FIXME: work out the right invocation
             client.displayStoriesFromStory(state.story.id);
         } else if (location.pathname && location.pathname.length > 1) { // location check here
+            console.log("two");
+            
             var articleIdMatch = location.pathname.match(/\/article\/(.+)/);
             if (articleIdMatch === null) { // no article found
                 displayStoryFailure({ type: "no article id", id: articleId });
             } else {
+                console.log("three");
+
                 // FIXME: work out the right invocation
                 client.displayStoryFromHome(articleIdMatch[1]);
             }
         } else {
+            console.log("four");
+
             document.title = config.title;
             client.displayStories();
         }

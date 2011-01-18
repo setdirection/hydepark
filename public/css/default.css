@@ -58,6 +58,10 @@ body.moveRight #story-page {
     border-right: 1px solid #eee;
 }
 
+#story {
+    padding: 10pt;
+}
+
 #side-content {
     width: 20%;
     float: right;
@@ -68,7 +72,7 @@ body.moveRight #story-page {
 }
 
 .story-headline {
-    font: 20pt serif;
+    font-size: 20pt;
 }
 
 a {
