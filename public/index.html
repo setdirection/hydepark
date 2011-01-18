@@ -91,7 +91,7 @@
 
   <script id="template-story-details" type="text/html">
   {{=<% %>=}}
-    <div id="story-{{id}}" class="hidden">
+    <div id="story-{{id}}">
         <div class="story-headline">
             {{title}}
         </div>
@@ -113,20 +113,28 @@
 </head>
 
 <body>
+    <!-- FIXME: restore error handling div -->
+    <!-- <div id="errors" style="display: none"></div> -->
+    
     <div id="header">Set Direction Blog</div>
-    
-    <div id="errors" style="display: none"></div>
-    
-    <!-- contains the "main" content of the page: stories or a story detail -->
-    <div id="main-content">
-        <div id="stories"></div>
-        <div id="story"></div>
-    </div>
 
-    <!-- contains the "firehouse" side stream -->
-    <div id="side-content">
-        <div></div>
-    </div>
+        <div id="main-page">
+
+            <!-- contains the "main" content of the page: stories or a story detail -->
+            <div id="main-content">
+                <div id="stories"></div>
+            </div>
+
+            <!-- contains the "firehouse" side stream -->
+            <div id="side-content">
+                <div id="items"></div>
+            </div>
+
+        </div>
+        
+        <div id="story-page">
+            <div id="story"></div>
+        </div>
 
     <script>    
     // -- Google Analytics

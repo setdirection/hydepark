@@ -167,17 +167,7 @@ var client = (function() {
         },
         
         displayStoriesFromStory: function(opts) {
-            // check if the stories are kicking around hidden
-            var anyStory = $(S_STORIES_CONTENT + " .story-headline");
-            if (anyStory.length = 0) {
-                displayStories();
-            } else {
-                // if so, redisplay them; otherwise, gotta reload the homepage!
-                var story = $(S_STORY_CONTENT);
-                story.fadeOut(200, function() {
-                    $(S_STORIES_CONTENT).fadeIn(200);
-                });
-            }
+            $("body").removeClass("moveRight");
         },
         
         displayFirehoseItems: function(opts) {
@@ -282,18 +272,15 @@ var client = (function() {
 
                         var storyContent = $(S_STORY_CONTENT);
                         storyContent.empty();
-                        storyContent.show();
                         
-                        $(S_STORIES_CONTENT).fadeOut(200, function() {
-                            // add the new story detail block to the main content block
-                            var storyTemplate = $(S_MT_DETAILS).html();
-                            var storyHtml = Mustache.to_html(storyTemplate, story);
-                            storyContent.prepend(storyHtml);
-                            $("#story-" + story.id).fadeIn();
-                        });
+                        var storyTemplate = $(S_MT_DETAILS).html();
+                        var storyHtml = Mustache.to_html(storyTemplate, story);
+                        storyContent.append(storyHtml);
 
+                        $("body").addClass("moveRight");
+                        
                         // put comments into the story
-                        insertCommentsViaDisqus(story, storyContent);
+                        //insertCommentsViaDisqus(story, storyContent);
 
                         // change the url, etc.
                         changeStateToStoryDetail(story);
