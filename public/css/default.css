@@ -2,13 +2,25 @@
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
 #header {
-    font: 40pt sans-serif;
+    font-size: 40pt;
+    background: #D1F7FF;
+    padding: 10pt;
 }
 
 #main-content {
-    width: 80%;
     float: left;
+    width: 80%;
+}
+
+#stories {
+    padding: 0 10pt 0 10pt;
+    border-right: 1px solid #eee;
 }
 
 #side-content {
@@ -52,8 +64,6 @@ a {
 }
 
 .homepage-story-container {
-    border-right: 1px solid #eee;
-    border-bottom: 1px solid #eee;
     padding-top: 1em;
     padding-bottom: 1em;
 }
