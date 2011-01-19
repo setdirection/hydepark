@@ -11,6 +11,15 @@ a {
     color: #267FD9;
 }
 
+h1 {
+    display: inline;
+    float: left;
+    font-size: 20pt;
+    font-weight: normal;
+    color: white;
+    margin: 0;
+}
+
 h1 a {
     color: white;
     text-decoration: none;
@@ -23,9 +32,7 @@ h1 a:hover:after {
     content: "↩ go back home";
 }
 
-h1 {
-    font-size: 20pt;
-    font-weight: normal;
+#header {
     background-image: -webkit-gradient(
         linear,
         left bottom,
@@ -40,7 +47,6 @@ h1 {
         rgb(48,48,48) 52%,
         rgb(77,77,77) 100%
     );
-    color: white;
     padding: 10pt;
     margin: 0;
     position: fixed;
@@ -50,6 +56,16 @@ h1 {
     width: 100%;
     -webkit-box-shadow: #999999 1px 1px 6px;
     z-index: 2; 
+}
+
+#sponsor {
+    float: right;
+    color: transparent;
+    width: 210px;
+    height: 100%;
+    background-image: url(/images/sponsor.png);
+    background-repeat: no-repeat;
+    background-position: left center;
 }
 
 #main-page {
@@ -94,7 +110,7 @@ body.moveRight #story-page {
     padding: 0 10pt 0 10pt;
 }
 
-#side-content {
+#side-content, #story-side-content {
     width: 20%;
     float: right;
     background: #F6F6F0;
@@ -114,16 +130,26 @@ body.moveRight #story-page {
     border-right: 1px solid #eee;
 }
 
-#story-side-content {
-    width: 20%;
-    float: right;
-    background: #F6F6F0;
+.author, .tags {
+    color: #333;
 }
 
-.story-headline a {
+.story-headline {
     font-family: "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2",serif;
     font-size: 20pt;
+}
+.story-headline a {
+    color: #000;
     text-decoration: none;
+}
+.story-headline a:hover, .firehose-item-author:hover {
+    color: #267FD9;
+}
+.story-headline a:hover:after {
+    padding-left: 4px;
+    color: #999;
+    font-size: 10pt;
+    content: "↩ read more";
 }
 
 .story-byline {
@@ -173,13 +199,26 @@ body.moveRight #story-page {
 }
 
 .firehose-item-author {
+    display: block;
     text-align: right;
     margin-top: 0.2em;
     color: gray;
+    text-decoration: none;
 }
 
+.firehose-item-author:before {
+    content: "@";
+}
+
+
 .firehose-item-title, .story-small-headline {
+    display: block;
     font-family: "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2",serif;
     font-weight: bold;
     margin-bottom: 0.5em;
+    text-decoration: none;
+    color: #000;
+}
+.firehose-item-title:hover {
+    color: #267FD9;
 }

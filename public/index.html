@@ -32,8 +32,8 @@
   <script id="template-firehose-twitter" type="text/html">
     {{=<% %>=}}
     <div id="{{id}}" class="firehose-item-twitter hidden">
-        <div class="firehose-item-excerpt">{{excerpt}}</div>
-        <div class="firehose-item-author">{{author}}</div>
+        <div class="firehose-item-excerpt">{{{excerpt}}}</div>
+        <a href="http://twitter.com/{{author}}" title="read users tweets on twitter.com" class="firehose-item-author">{{author}}</a>
     </div>
     <%={{ }}=%>
   </script>
@@ -41,8 +41,8 @@
   <script id="template-firehose-link" type="text/html">
     {{=<% %>=}}
     <div id="{{id}}" class="firehose-item-link hidden">
-        <div class="firehose-item-title">{{title}}</div>
-        <div class="firehose-item-excerpt">{{excerpt}}</div>
+        <a href="{{link}}" class="firehose-item-title">{{title}}</a>
+        <div class="firehose-item-excerpt">{{{excerpt}}}</div>
     </div>
     <%={{ }}=%>
   </script>
@@ -71,7 +71,7 @@
         </div>
         
         <div class="story-byline">
-            Posted by {{author}} on {{pubDate}} (tags: {{tags}})
+            Posted by <span class="author">{{author}}</span> on {{pubDate}} (tags: <span class="tags">{{tags}}</span>)
         </div>
         
         <div class="story-excerpt">
@@ -91,7 +91,7 @@
         </div>
         
         <div class="story-byline">
-            Posted by {{author}} on {{pubDate}} (tags: {{tags}})
+            Posted by <span class="author">{{author}}</span> on {{pubDate}} (tags: <span class="tags">{{tags}}</span>)
         </div>
         
         <div class="story-full">
@@ -109,7 +109,7 @@
         </div>
         
         <div class="story-byline">
-            Posted by {{author}} on {{pubDate}} (tags: {{tags}})
+            Posted by <span class="author">{{author}}</span> on {{pubDate}} (tags: <span class="tags">{{tags}}</span>)
         </div>
         
         <div class="story-full">
@@ -128,7 +128,10 @@
     <!-- FIXME: restore error handling div -->
     <!-- <div id="errors" style="display: none"></div> -->
     
+    <div id="header">
     <h1><a href="/" onclick="client.displayStoriesFromAnywhere(); return false">Software Matters <span style="color:#999">@</span> Set Direction</a></h1>
+    <a id="sponsor" href="http://developers.vmware.com/" title="Read more about VMWare and Developers">VMWare</a>
+    </div>
 
     <div id="main-page">
 

@@ -79,24 +79,24 @@ var blog = (function() {
         {
             id: 'jquery-1.5b1',
             title: '',
-            excerpt: 'Been looking for the big changes in jQuery 1.5? promises (jQuery.getJSON( url ).error( errorCallback )) and subclassing http://t.co/QlvjqLY',
+            excerpt: 'Been looking for the big changes in jQuery 1.5? promises (jQuery.getJSON( url ).error( errorCallback )) and subclassing <a href="http://t.co/QlvjqLY">http://t.co/QlvjqLY</a>',
             link: 'http://t.co/QlvjqLY',
             type: 'twitter',
-            author: '@dalmaer'
+            author: 'dalmaer'
         }, {
             id: 'rwd-html5-less',
             title: '',
-            excerpt: 'Responsive Web Design with HTML5 and the Less Framework 3 - http://bit.ly/eVVbA1',
+            excerpt: 'Responsive Web Design with HTML5 and the Less Framework 3 <a href="http://bit.ly/eVVbA1">http://bit.ly/eVVbA1</a>',
             link: 'http://bit.ly/eVVbA1',
             type: 'twitter',
-            author: '@smashingmag'
+            author: 'smashingmag'
         }, {
             id: 'jquery-view',
             title: '',
-            excerpt: 'Ryan Johnson has released his awesome jQuery View http://t.co/w4QlfbW (http://t.co/D2GsOHG great Backbone example using CoffeeScript)',
+            excerpt: 'Ryan Johnson has released his awesome jQuery View <a href="http://t.co/w4QlfbW">http://t.co/w4QlfbW</a> (<a href="http://t.co/D2GsOHG">http://t.co/D2GsOHG</a> great Backbone example using CoffeeScript)',
             link: 'http://t.co/w4QlfbW',
             type: 'twitter',
-            author: '@dalmaer'
+            author: 'dalmaer'
         }, {
             id: 'ripple-phonegap',
             title: 'Ripple',
@@ -106,10 +106,10 @@ var blog = (function() {
         }, {
             id: 'variable-size-bg',
             title: '',
-            excerpt: 'Variable size background image from @jonathanstark http://jonathanstark.com/blog/2011/01/03/variable-size-background-image/',
+            excerpt: 'Variable size background image from @jonathanstark <a href="http://jonathanstark.com/blog/2011/01/03/variable-size-background-image/">http://bit.ly/a0a9x</a>',
             link: 'http://jonathanstark.com/blog/2011/01/03/variable-size-background-image/',
             type: 'twitter',
-            author: '@webdirections'
+            author: 'webdirections'
         }, {
             id: 'fb-comments-new',
             title: 'Facebook Comments Plugin',
