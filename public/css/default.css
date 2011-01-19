@@ -16,6 +16,8 @@ body {
     left: 0;
     height: 25pt;
     width: 100%;
+    -webkit-box-shadow: #999999 1px 1px 6px;
+    z-index: 2;
 }
 
 #main-page {
@@ -51,7 +53,6 @@ body.moveRight #story-page {
 #main-content {
     float: left;
     width: 80%;
-    height: 100%;  /* TODO: this is temporary until we have a lot of content */
     border-right: 1px solid #BB9;
     -webkit-box-shadow: #D0D0C5 2px 2px 6px;
 }
