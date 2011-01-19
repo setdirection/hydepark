@@ -98,11 +98,7 @@ body.moveRight #story-page {
     width: 20%;
     float: right;
     background: #F6F6F0;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
-#side-content * {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 1.2em;
 }
 
 #story-content {
@@ -183,6 +179,7 @@ body.moveRight #story-page {
 }
 
 .firehose-item-title, .story-small-headline {
+    font-family: "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2",serif;
     font-weight: bold;
-    margin-bottom: 0.1em;
+    margin-bottom: 0.5em;
 }
