@@ -9,7 +9,21 @@ body {
 
 #header {
     font-size: 20pt;
-    background: #D1F7FF;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.04, rgb(0,0,0)),
+        color-stop(0.52, rgb(48,48,48)),
+        color-stop(1, rgb(77,77,77))
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        rgb(0,0,0) 4%,
+        rgb(48,48,48) 52%,
+        rgb(77,77,77) 100%
+    );
+    color: white;
     padding: 10pt;
     position: fixed;
     top: 0;
@@ -17,7 +31,7 @@ body {
     height: 25pt;
     width: 100%;
     -webkit-box-shadow: #999999 1px 1px 6px;
-    z-index: 2;
+    z-index: 2; 
 }
 
 #main-page {
