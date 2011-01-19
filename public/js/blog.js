@@ -25,8 +25,8 @@ var blog = (function() {
             author: 'Dion Almaer',
             pubDate: 'Tuesday, 18 Jan 2011 09:56:31 +0000',
             tags: ['tools', 'html5'],
-            excerpt: 'Illuminations is a new tool from Steven Roussey to help you develop web applications by making your existing tools smarter -- investing them with the knowledge of your JavaScript framework and your workflow with it.',
-            content: 'Illuminations is a new tool from Steven Roussey to help you develop web applications by making your existing tools smarter -- investing them with the knowledge of your JavaScript framework and your workflow with it.'
+            excerpt: '<a href="http://www.illuminations-for-developers.com/">Illuminations</a> is a new tool from Steven Roussey to help you develop web applications by making your existing tools smarter -- investing them with the knowledge of your JavaScript framework and your workflow with it.',
+            content: '<a href="http://www.illuminations-for-developers.com/">Illuminations</a> is a new tool from Steven Roussey to help you develop web applications by making your existing tools smarter -- investing them with the knowledge of your JavaScript framework and your workflow with it.'
         }, {
             id: 'zombiejs',
             title: 'Zombie.js: fast, headless, full-stack testing',
