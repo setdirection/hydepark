@@ -7,7 +7,19 @@ body {
     padding: 0;
 }
 
-#header {
+h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+h1 a:hover:after {
+    padding-left: 4px;
+    color: #999;
+    font-size: 10pt;
+    content: "← go back home";
+}
+
+h1 {
     font-size: 20pt;
     background-image: -webkit-gradient(
         linear,
@@ -25,6 +37,7 @@ body {
     );
     color: white;
     padding: 10pt;
+    margin: 0;
     position: fixed;
     top: 0;
     left: 0;

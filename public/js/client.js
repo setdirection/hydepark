@@ -111,11 +111,7 @@ var client = (function() {
             console.log("display all of them");
             document.title = config.title;
 
-            if ($("body").hasClass("moveRight")) {
-                client.displayStoriesFromStory();
-            } else {
-                client.displayStories();
-            }
+            client.displayStoriesFromAnywhere();
         }
         client.displayFirehoseItems();
     });
@@ -125,6 +121,16 @@ var client = (function() {
         // save the settings
         persistSettings: function() {
             // no op
+        },
+
+        // make sure that the right thing happens no matter where you are
+        // TODO: bug if you haven't gone to the front page first, where it doesn't load the content when transitioning back
+        displayStoriesFromAnywhere: function(opts) {
+            if ($("body").hasClass("moveRight")) {
+                this.displayStoriesFromStory(opts);
+            } else {
+                this.displayStories(opts);
+            }
         },
 
         // performs the initial display of the stories when the site is loaded
