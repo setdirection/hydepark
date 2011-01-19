@@ -1,10 +1,14 @@
 * {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Cambria, 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
 body {
     margin: 0;
     padding: 0;
+}
+
+a {
+    color: #267FD9;
 }
 
 h1 a {
@@ -21,6 +25,7 @@ h1 a:hover:after {
 
 h1 {
     font-size: 20pt;
+    font-weight: normal;
     background-image: -webkit-gradient(
         linear,
         left bottom,
@@ -93,6 +98,11 @@ body.moveRight #story-page {
     width: 20%;
     float: right;
     background: #F6F6F0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#side-content * {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 #story-content {
@@ -114,15 +124,9 @@ body.moveRight #story-page {
     background: #F6F6F0;
 }
 
-.story-headline {
-    font-size: 20pt;
-    font-family: "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2",serif;
-}
-
-a {
-    color: #267FD9;
-}
 .story-headline a {
+    font-family: "ff-meta-serif-web-pro-1","ff-meta-serif-web-pro-2",serif;
+    font-size: 20pt;
     text-decoration: none;
 }
 
@@ -134,6 +138,7 @@ a {
 .story-full {
     margin-top: 1em;
     color: #505050;
+    line-height: 24px;
 }
 
 .story-excerpt {
