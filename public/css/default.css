@@ -66,10 +66,6 @@ body.moveRight #story-page {
     background: #F6F6F0;
 }
 
-#items {
-    padding: 10pt;
-}
-
 #story-content {
     float: left;
     width: 80%;
@@ -139,9 +135,10 @@ a {
 }
 
 .firehose-item-twitter, .firehose-item-link, .story-small {
-    padding: 1em 1em 2em 1em;
+    padding: 1.5em 1em 1.5em 1em;
     font-size: 10pt;
     word-wrap: break-word;
+    border-bottom: 1px solid #BB9;
 }
 
 .firehose-item-author {
