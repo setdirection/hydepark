@@ -69,6 +69,9 @@ body.moveRight #story-page {
 #story-content {
     float: left;
     width: 80%;
+    height: 100%;  /* TODO: this is temporary until we have a lot of content */
+    border-right: 1px solid #BB9;
+    -webkit-box-shadow: #D0D0C5 2px 2px 6px;
 }
 
 #story {
@@ -79,10 +82,7 @@ body.moveRight #story-page {
 #story-side-content {
     width: 20%;
     float: right;
-}
-
-#story-items {
-    padding: 10pt;
+    background: #F6F6F0;
 }
 
 .story-headline {
