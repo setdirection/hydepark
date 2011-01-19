@@ -8,7 +8,7 @@ var blog = (function() {
     //
     // MOCK DATA
     //
-    
+
     // Articles
     var articleData = [
         {
@@ -19,6 +19,14 @@ var blog = (function() {
             tags: ['announcement'],
             excerpt: 'The world needed another blog. We needed an Ajaxian 2 for the new world, and here it is.',
             content: 'The world needed another blog. We needed an Ajaxian 2 for the new world, and here it is. Powered by node, mongo, express, mongoose, jquery, and yo momma. If it were more (e.g., a hardware announcement), you can bet the event would be in Cupertino or San Francisco. Below, the event invite, which I’m posting here despite Verizon’s mandate not to. Just hope it doesn’t result in a personalized data cap. The announcement will be headlined by President and COO Lowell McAdam, but there will likely be a special guest as well. Apple CEO Steve Jobs. While the appearance isn’t 100 percent assured, sources in a position to know tell me that, barring any unforeseen circumstances, Jobs will likely join McAdam onstage in New York when he announces the addition of the iPhone to its handset lineup.'
+        }, {
+            id: 'v8-fibers',
+            title: 'Adding fibers to your server side v8 diet offers efficiency and clarity',
+            author: 'Dion Almaer',
+            pubDate: 'Tuesday, 14 Jan 2011 11:26:21 +0000',
+            tags: ['v8', 'serverside'],
+            excerpt: 'The <a href="http://asana.com/">Asana</a> team continue their quest to make an ergonomic, productive, and performant framework for the Web.<p>Today they <a href="http://asana.com/blog/?p=49">are discussing</a> their <a href="http://groups.google.com/group/v8cgi/browse_thread/thread/4c6ed51b4999bdf2">patch to v8cgi</a> that adds in support for their own fiber implementation.</p>',
+            content: '<blockquote><p>In computer science, a fiber is a particularly lightweight thread of execution.</p><p>Like threads, fibers share address space. However, fibers use co-operative multitasking while threads use pre-emptive multitasking. Threads often depend on the kernel\'s thread scheduler to preempt a busy thread and resume another thread; fibers yield themselves to run another fiber while executing. The article on threads contains more on the distinction between threads and fibers.</p><p>Fibers describe essentially the same concept as coroutines. The distinction, if there is any, is that coroutines are a language-level construct, a form of control flow, while fibers are a systems-level construct, viewed as threads that happen not to run concurrently. Priority is contentious; fibers may be viewed as an implementation of coroutines, or as a substrate on which to implement coroutines.</p></blockquote><p>The above is taken from <a href="http://en.wikipedia.org/wiki/Fiber_(computer_science)">Wikipedia</a>, which is discussing the computer science concepts behind fibers.</p><p>Why do we bring this up? The <a href="http://asana.com/">Asana</a> team (who we <a href="http://ajaxian.com/archives/lunascript-a-new-language-and-platform-to-take-your-web-2-0-apps-to-the-moon">featured when they came out with LunaScript</a>) continue their quest to make an ergonomic, productive, and performant framework for the Web.</p><p>Today they <a href="http://asana.com/blog/?p=49">are discussing</a> their <a href="http://groups.google.com/group/v8cgi/browse_thread/thread/4c6ed51b4999bdf2">patch to v8cgi</a> that adds in support for their own fiber implementation.</p><p>It all ends up with this:</p> <blockquote><p>Few languages support fibers natively (though support was recently added to <a href="http://all-thing.net/fibers">Ruby</a>). We write most of our server code in JavaScript and run it under Google’s v8 engine, the same JS runtime that Chrome uses. Fortunately the v8 codebase is excellently structured, so we were able to add fiber support in just a few days. Our changes take the form of a patch (currently pending review) to <a href="http://code.google.com/p/v8cgi/">v8cgi</a>, a library of server-oriented extensions to v8.</p>',
         }, {
             id: 'illuminations-for-developers',
             title: 'Illuminations for Developers',

@@ -26,7 +26,7 @@ var client = (function() {
     var settings = {
         storiesOnHome: 10,
         firehoseItemsOnHome: 15,
-        showFullStory: true
+        showFullStory: false
     };
 
     // -- Private methods
