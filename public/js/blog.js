@@ -82,13 +82,6 @@ var blog = (function() {
             type: 'twitter',
             author: '@dalmaer'
         }, {
-            id: 'jquery-view',
-            title: '',
-            excerpt: 'Ryan Johnson has released his awesome jQuery View http://t.co/w4QlfbW (http://t.co/D2GsOHG great Backbone example using CoffeeScript)',
-            link: 'http://t.co/w4QlfbW',
-            type: 'twitter',
-            author: '@dalmaer'
-        }, {
             id: 'ripple-phonegap',
             title: 'Ripple',
             excerpt: "Test your Phonegap Apps inside Chrome with Ripple",
