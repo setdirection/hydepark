@@ -20,6 +20,22 @@ var blog = (function() {
             excerpt: 'The world needed another blog. We needed an Ajaxian 2 for the new world, and here it is.',
             content: 'The world needed another blog. We needed an Ajaxian 2 for the new world, and here it is. Powered by node, mongo, express, mongoose, jquery, and yo momma. If it were more (e.g., a hardware announcement), you can bet the event would be in Cupertino or San Francisco. Below, the event invite, which I’m posting here despite Verizon’s mandate not to. Just hope it doesn’t result in a personalized data cap. The announcement will be headlined by President and COO Lowell McAdam, but there will likely be a special guest as well. Apple CEO Steve Jobs. While the appearance isn’t 100 percent assured, sources in a position to know tell me that, barring any unforeseen circumstances, Jobs will likely join McAdam onstage in New York when he announces the addition of the iPhone to its handset lineup.'
         }, {
+            id: 'illuminations-for-developers',
+            title: 'Illuminations for Developers',
+            author: 'Dion Almaer',
+            pubDate: 'Tuesday, 18 Jan 2011 09:56:31 +0000',
+            tags: ['tools', 'html5'],
+            excerpt: 'Illuminations is a new tool from Steven Roussey to help you develop web applications by making your existing tools smarter -- investing them with the knowledge of your JavaScript framework and your workflow with it.',
+            content: 'Illuminations is a new tool from Steven Roussey to help you develop web applications by making your existing tools smarter -- investing them with the knowledge of your JavaScript framework and your workflow with it.'
+        }, {
+            id: 'zombiejs',
+            title: 'Zombie.js: fast, headless, full-stack testing',
+            author: 'Dion Almaer',
+            pubDate: 'Wednesday, 14 Jan 2011 09:56:31 +0000',
+            tags: ['jquery', 'testing'],
+            excerpt: 'What\'s Zombie.js? An insanely fast, headless, full-stack testing written in CoffeeScript for Node.js. Zombie.js simulates a headless browser, essentially it will load the page into memory and execute any JavaScript in an environment that approximates a modern Web browser. It lets you test applications that are heavy on client-side JavaScript (jQuery, Sammy.js, Backbone.js, etc) without running an actual browser.',
+            content: 'What\'s Zombie.js? An insanely fast, headless, full-stack testing written in CoffeeScript for Node.js. Zombie.js simulates a headless browser, essentially it will load the page into memory and execute any JavaScript in an environment that approximates a modern Web browser. It lets you test applications that are heavy on client-side JavaScript (jQuery, Sammy.js, Backbone.js, etc) without running an actual browser.'
+        }, {
             id: 'css-transforms-yay',
             title: 'CSS Transforms. Yay!',
             author: 'Dion Almaer',
