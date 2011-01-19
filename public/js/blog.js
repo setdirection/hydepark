@@ -61,9 +61,36 @@ var blog = (function() {
     // Firehose items
     var hoseData = [
         {
+            id: 'jquery-1.5b1',
+            title: '',
+            excerpt: 'Been looking for the big changes in jQuery 1.5? promises (jQuery.getJSON( url ).error( errorCallback )) and subclassing http://t.co/QlvjqLY',
+            link: 'http://t.co/QlvjqLY',
+            type: 'twitter',
+            author: '@dalmaer'
+        }, {
+            id: 'rwd-html5-less',
+            title: '',
+            excerpt: 'Responsive Web Design with HTML5 and the Less Framework 3 - http://bit.ly/eVVbA1',
+            link: 'http://bit.ly/eVVbA1',
+            type: 'twitter',
+            author: '@smashingmag'
+        }, {
+            id: 'jquery-view',
+            title: '',
+            excerpt: 'Ryan Johnson has released his awesome jQuery View http://t.co/w4QlfbW (http://t.co/D2GsOHG great Backbone example using CoffeeScript)',
+            link: 'http://t.co/w4QlfbW',
+            type: 'twitter',
+            author: '@dalmaer'
+        }, {
+            id: 'ripple-phonegap',
+            title: 'Ripple',
+            excerpt: "Test your Phonegap Apps inside Chrome with Ripple",
+            link: 'http://bit.ly/ar4Svx',
+            type: 'link'            
+        }, {
             id: 'variable-size-bg',
             title: '',
-            excerpt: 'Variable size background image from @jonathanstark http://jonathanstark.com/blog/2011/01/03/variable-size-background-image/ ^MS',
+            excerpt: 'Variable size background image from @jonathanstark http://jonathanstark.com/blog/2011/01/03/variable-size-background-image/',
             link: 'http://jonathanstark.com/blog/2011/01/03/variable-size-background-image/',
             type: 'twitter',
             author: '@webdirections'
