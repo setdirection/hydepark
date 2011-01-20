@@ -22,7 +22,7 @@
 
   <script id="template-story-small" type="text/html">
     {{=<% %>=}}
-    <div id="small-{{id}}" class="story-small {{specialClass}}">
+    <div id="small-{{id}}" class="story-small {{specialClass}}" onclick="client.displayStory('{{id}}'); return false;">
         <div class="story-small-headline">{{title}}</div>
         <div class="story-small-excerpt">{{{excerpt}}}</div>
     </div>
@@ -49,7 +49,7 @@
 
   <script id="template-show-more-articles" type="text/html">
     {{=<% %>=}}
-    <div id="show-more-articles" class="hidden">
+    <div id="show-more-articles" class="hidden" onclick="client.displayStory('{{id}}'); return false;">
         <a href="/?lastId={{urlId}}" onclick="client.displayStories({ lastId: '{{id}}' }); return false;">Show More Articles</a>
     </div>
     <%={{ }}=%>
@@ -57,7 +57,7 @@
 
   <script id="template-show-more-firehose-items" type="text/html">
     {{=<% %>=}}
-    <div id="show-more-firehose-items" class="hidden">
+    <div id="show-more-firehose-items" class="hidden" onclick="client.displayStory('{{id}}'); return false;">
         <a href="/?lastFirehoseId={{urlId}}" onclick="client.displayFirehoseItems({ lastId: '{{id}}' }); return false;">Show More</a>
     </div>
     <%={{ }}=%>
@@ -65,9 +65,9 @@
 
   <script id="template-excerpt" type="text/html">
     {{=<% %>=}}
-    <div id="{{id}}" class="homepage-story-container hidden">
+    <div id="{{id}}" class="homepage-story-container hidden" onclick="client.displayStory('{{id}}'); return false;">
         <div class="story-headline">
-            <a href="/article/{{id}}" onclick="client.displayStoryFromHome('{{id}}'); return false;">{{title}}</a>
+            <a href="/article/{{id}}" onclick="client.displayStory('{{id}}'); return false;">{{title}}</a>
         </div>
         
         <div class="story-byline">
@@ -78,7 +78,7 @@
             {{{excerpt}}}
         </div>
         
-        <a href="/article/{{id}}" class="story-readmore" onclick="client.displayStoryFromHome('{{id}}'); return false;">read the full story &raquo;</a>
+        <a href="/article/{{id}}" class="story-readmore" onclick="client.displayStory('{{id}}'); return false;">read the full story &raquo;</a>
     </div>
     <%={{ }}=%>
   </script>
@@ -87,7 +87,7 @@
   {{=<% %>=}}
     <div id="{{id}}" class="homepage-story-container hidden">
         <div class="story-headline">
-            <a href="/article/{{id}}" onclick="client.displayStoryFromHome('{{id}}'); return false;">{{title}}</a>
+            <a href="/article/{{id}}" onclick="client.displayStory('{{id}}'); return false;">{{title}}</a>
         </div>
         
         <div class="story-byline">
@@ -136,7 +136,7 @@
     <div id="main-page">
 
         <!-- contains the "firehouse" side stream -->
-        <div id="side-content">
+        <div id="main-sidebar" class="sidebar">
             <div id="items"></div>
         </div>
 
@@ -149,7 +149,7 @@
         
     <div id="story-page">
 
-        <div id="story-side-content">
+        <div id="story-sidebar" class="sidebar">
             <div id="story-items"></div>
         </div>
 

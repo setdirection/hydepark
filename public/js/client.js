@@ -88,13 +88,13 @@ var client = (function() {
         console.log(location.pathname.length, location.pathname.substr(1));
         
         if (state && state.type == "displayStory" && state.story.id) {
-            console.log("displayStoryFromHome: ", state);
+            console.log("displayStory: ", state);
             
             //console.log(state.story.id);
             document.title = state.title;
             
             // FIXME: work out the right invocation
-            client.displayStoryFromHome(state.story.id, true);
+            client.displayStory(state.story.id, true);
         } else if (location.pathname && location.pathname.length > 1) { // location check here
             console.log("real pathname: " + location.pathname);
             
@@ -105,7 +105,7 @@ var client = (function() {
                 console.log("display from home: " + articleIdMatch[1]);
 
                 // FIXME: work out the right invocation
-                client.displayStoryFromHome(articleIdMatch[1], true);
+                client.displayStory(articleIdMatch[1], true);
             }
         } else {
             console.log("display all of them");
@@ -272,7 +272,7 @@ var client = (function() {
             });
         },
         
-        displayStoryFromHome: function(storyId, fromPop) {
+        displayStory: function(storyId, fromPop) {
             // requests the posts and pass in a callback
             blog.post({
                            id: storyId,
@@ -291,7 +291,7 @@ var client = (function() {
                         // storyVisible = false;
 
                         // if (storyVisible) {
-                        //     return displayStoryFromHomeFancy(story.id);
+                        //     return displayStoryFancy(story.id);
                         // }
 
                         var storyContent = $(S_STORY_CONTENT);
@@ -330,8 +330,6 @@ var client = (function() {
                                         story.specialClass = undefined;
                                         
                                         storiesContent.append(storyHtml);
-                                        
-                                        
 
                                         if (story.lastArticle) showMore = false;
                                     });
@@ -353,7 +351,7 @@ var client = (function() {
             });
         },
 
-        displayStoryFromHomeFancy: function(storyId) {
+        displayStoryFancy: function(storyId) {
             console.log("Fancy!");
         }
     }

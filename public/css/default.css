@@ -110,10 +110,10 @@ body.moveRight #story-page {
     padding: 0 10pt 0 10pt;
 }
 
-#side-content, #story-side-content {
+.sidebar {
     width: 20%;
     float: right;
-    background: #F6F6F0;
+    background: #F0F2F4;
     line-height: 1.2em;
 }
 
@@ -188,7 +188,7 @@ body.moveRight #story-page {
 }
 
 .current-story-small {
-    background: yellow;
+    background: #E4E6E8;
 }
 
 #show-more-articles, #show-more-firehose-items {
@@ -201,6 +201,10 @@ body.moveRight #story-page {
     font-size: 10pt;
     word-wrap: break-word;
     border-bottom: 1px solid #BB9;
+}
+
+.story-small {
+    cursor: pointer;
 }
 
 .firehose-item-author {
