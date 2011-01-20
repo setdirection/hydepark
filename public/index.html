@@ -33,7 +33,7 @@
     {{=<% %>=}}
     <div id="{{id}}" class="firehose-item-twitter hidden">
         <div class="firehose-item-excerpt">{{{excerpt}}}</div>
-        <a href="http://twitter.com/{{author}}" title="read users tweets on twitter.com" class="firehose-item-author">{{author}}</a>
+        <a href="http://twitter.com/{{author}}" title="read users tweets on twitter.com" class="firehose-item-author" target="_blank">{{author}}</a>
     </div>
     <%={{ }}=%>
   </script>
@@ -41,7 +41,7 @@
   <script id="template-firehose-link" type="text/html">
     {{=<% %>=}}
     <div id="{{id}}" class="firehose-item-link hidden">
-        <a href="{{link}}" class="firehose-item-title">{{title}}</a>
+        <a href="{{link}}" class="firehose-item-title" target="_blank">{{title}}</a>
         <div class="firehose-item-excerpt">{{{excerpt}}}</div>
     </div>
     <%={{ }}=%>
