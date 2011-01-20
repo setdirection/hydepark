@@ -20,6 +20,8 @@ var client = (function() {
     var INITIAL_STORY_FADE_IN_DELAY = 200;
     var INITIAL_FIREHOSE_ITEM_FADE_IN_DELAY = 125;
     
+    var DATA_LOADED_WITH_STORIES = false;
+    
     // -- Settings and configuration
     
     // default settings values; can be overridden by the user
@@ -183,6 +185,7 @@ var client = (function() {
                             $(S_SHOW_MORE_ARTICLES).fadeIn();
                         }
                         
+                        DATA_LOADED_WITH_STORIES = true;
                     },
                     onFailure: function(errorCode) {
                         // TODO: implement the error function
@@ -191,7 +194,11 @@ var client = (function() {
         },
         
         displayStoriesFromStory: function(opts) {
-            $("body").removeClass("moveRight");
+            if (DATA_LOADED_WITH_STORIES) { // just show them!
+                $("body").removeClass("moveRight")   
+            } else { // go get 'em
+                this.displayStories(opts);
+            }
         },
         
         displayFirehoseItems: function(opts) {
