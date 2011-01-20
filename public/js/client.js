@@ -192,15 +192,14 @@ var client = (function() {
                     }
             });
         },
-        
+
         displayStoriesFromStory: function(opts) {
-            if (DATA_LOADED_WITH_STORIES) { // just show them!
-                $("body").removeClass("moveRight")   
-            } else { // go get 'em
+            $("body").removeClass("moveRight");
+            if (!DATA_LOADED_WITH_STORIES) { // just show them!
                 this.displayStories(opts);
             }
         },
-        
+
         displayFirehoseItems: function(opts) {
             opts = opts || {};
             
