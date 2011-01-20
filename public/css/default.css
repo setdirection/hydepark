@@ -55,6 +55,7 @@ h1 a:hover:after {
     height: 25pt;
     width: 100%;
     -webkit-box-shadow: #999999 1px 1px 6px;
+       -moz-box-shadow: #999999 1px 1px 6px;
     z-index: 2; 
 }
 
@@ -102,12 +103,13 @@ body.moveRight #story-page {
     float: left;
     width: 80%;
     height: 100%;  /* TODO: this is temporary until we have a lot of content */
-    border-right: 1px solid #BB9;
-    -webkit-box-shadow: #D0D0C5 2px 2px 6px;
 }
 
 #stories {
     padding: 0 10pt 0 10pt;
+    border-right: 1px solid #BB9;
+    -webkit-box-shadow: #D0D0C5 2px 2px 6px;
+       -moz-box-shadow: #D0D0C5 2px 2px 6px;
 }
 
 .sidebar {
@@ -121,13 +123,14 @@ body.moveRight #story-page {
     float: left;
     width: 80%;
     height: 100%;  /* TODO: this is temporary until we have a lot of content */
-    border-right: 1px solid #BB9;
     -webkit-box-shadow: #D0D0C5 2px 2px 6px;
+       -moz-box-shadow: #D0D0C5 2px 2px 6px;
 }
 
 #story {
     padding: 10pt;
-    border-right: 1px solid #eee;
+    border-right: 1px solid #BB9;
+    height: 100%;
 }
 
 .author, .tags {
