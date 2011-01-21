@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <title>Transition Test</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 50px;
+        }
+                
+        #div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            -webkit-transition: all 0.2s ease-in-out;
+               -moz-transition: all 0.2s ease-in-out;
+        }
+
+        .moveRight #div {
+            -webkit-transform: translate3d(200px, 0, 0);
+               -moz-transform: translate(200px, 0);
+        }
+    </style>
+    
+    <script type="text/javascript">
+        function moveRightWith() {
+            $('#div').css({
+                '-webkit-transition-duration': '2s',
+                '-moz-transition-duration': '2s'
+            });
+
+            $("body").addClass('moveRight');
+        }
+        function moveLeftWith() {
+            $('#div').css({
+                '-webkit-transition-duration': '2s',
+                '-moz-transition-duration': '2s'
+            });
+            $("body").removeClass('moveRight');
+        }
+
+        function moveRightWithout() {
+            $('#div').css({
+                '-webkit-transition-duration': '0',
+                '-moz-transition-duration': '0s'
+            });
+            $("body").addClass('moveRight');
+        }        
+        function moveLeftWithout() {
+            $('#div').css({
+                '-webkit-transition-duration': '0',
+                '-moz-transition-duration': '0s'
+            });
+            $("body").removeClass('moveRight');
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div"></div>
+
+    <div id="controls">
+        <input type="button" onclick="moveLeftWith()" value="Move Left w/ Transition">
+        <input type="button" onclick="moveRightWith()" value="Move Right w/ Transition">
+        <input type="button" onclick="moveLeftWithout()" value="Move Left">
+        <input type="button" onclick="moveRightWithout()" value="Move Right">
+    </div>
+</body>
+</html>

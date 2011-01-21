@@ -83,7 +83,6 @@ var client = (function() {
     // handle history
     // TODO: share with the URL parser
     $(window).bind("popstate", function(e) {
-        console.log(e);
         var state = e.originalEvent.state;
         
         console.log("POP goes the weazle! ", state);
@@ -307,13 +306,30 @@ var client = (function() {
                         var storyHtml = Mustache.to_html(storyTemplate, story);
                         storyContent.append(storyHtml);
 
+                        // don't animate in from popstate
+                        if (fromPop) {
+                            console.log("SET TO ZERO");
+                            $('#story-page').css({
+                                '-webkit-transition-duration': '0',
+                                '-moz-transition-duration': '0s'
+                            });
+
+                            // FIXME: attach to the end of the transition
+                            setTimeout(function() {
+                                $('#story-page').css({
+                                    '-webkit-transition-duration': '0.3s',
+                                    '-moz-transition-duration': '0.3s'
+                                })
+                            }, 300);
+                        }
+
                         $("body").addClass("moveRight");
-                        
+
                         // put comments into the story
-                        //insertCommentsViaDisqus(story, storyContent);
+                        insertCommentsViaDisqus(story, storyContent);
 
                         // change the url, etc.
-                        if(!fromPop) changeStateToStoryDetail(story);
+                        if (!fromPop) changeStateToStoryDetail(story);
                         
                         // TODO: change settings to ensure same stories on main page are displayed
                         // in the sidebar; rely on blog to do the caching
