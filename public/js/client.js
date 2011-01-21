@@ -80,6 +80,12 @@ var client = (function() {
         document.body.appendChild(script);        
     }
     
+    // Take the raw story object in and add helper data
+    function mungeStory(story) {
+        story.date = $.timeago(story.pubDate);
+        return story;
+    }
+    
     // handle history
     // TODO: share with the URL parser
     $(window).bind("popstate", function(e) {
@@ -159,6 +165,7 @@ var client = (function() {
                         var showMore = true;
                         var lastStory;
                         $.each(data, function(index, story) {
+                            story = mungeStory(story);
                             lastStory = story;
                             
                             var storyHtml = Mustache.to_html(storyTemplate, story);
