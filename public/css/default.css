@@ -231,6 +231,11 @@ body.moveRight #story-page {
     text-decoration: none;
     color: #000;
 }
-.firehose-item-title:hover {
-    color: #267FD9;
+.firehose-item-title:hover, .tag:hover {
+    color: #267FD9; /* the blue color */
+}
+
+.tag {
+    text-decoration: none;
+    color: #000;    
 }

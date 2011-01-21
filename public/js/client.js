@@ -16,20 +16,13 @@ var client = (function() {
     var S_MT_FIREHOSE_TWITTER = "#template-firehose-twitter";
     var S_MT_FIREHOSE_LINK = "#template-firehose-link";
     var S_MT_STORY_SMALL = "#template-story-small";
-    
+
     var INITIAL_STORY_FADE_IN_DELAY = 200;
     var INITIAL_FIREHOSE_ITEM_FADE_IN_DELAY = 125;
-    
+
     var DATA_LOADED_WITH_STORIES = false;
-    
-    // -- Settings and configuration
-    
-    // default settings values; can be overridden by the user
-    var settings = {
-        storiesOnHome: 10,
-        firehoseItemsOnHome: 15,
-        showFullStory: false
-    };
+
+    var settings = config; // FIXME config becomes the default, so merge with user settings when we have them
 
     // -- Private methods
 
@@ -45,7 +38,7 @@ var client = (function() {
         }
         ui.displayError(errorString);
     };
-    
+
     function changeStateToStoryDetail(story) {
         // setup history state
         // TODO make sure the "currentState" object has info it needs to get back to onpopstate
@@ -54,57 +47,75 @@ var client = (function() {
         document.title = htmlTitle;
         console.log("PUSH: ", {type: "displayStory", story: story, title: htmlTitle});
     };
-    
+
     function insertCommentsViaIntenseDebate(story, content) {
         var script   = document.createElement("script");
             script.text = "var idcomments_acct = '65b747c511858417522dbbe2f72ab6ea';var idcomments_post_id = '" + story.id + "';var idcomments_post_url = 'http://setdirection.com/article/" + story.id + "';"
         document.body.appendChild(script);
-        
+
         content.append("<span id='IDCommentsPostTitle' style='display:none'></span>");
-        
+
         var script2   = document.createElement("script");
+            script2.async = true;
+            script2.defer = true;
             script2.src = "http://www.intensedebate.com/js/genericCommentWrapperV2.js"
-        document.body.appendChild(script2);        
+        document.body.appendChild(script2);
     }
-    
+
     function insertCommentsViaDisqus(story, content) {
         content.append('<div id="disqus_thread"></div>');
-        
+
         var script   = document.createElement("script");
+            script.async = true;
+            script.defer = true;
             script.text = "var disqus_shortname = 'set-direction';" +
                 "var disqus_identifier = '" + story.id + "';" +
                 ((config.type == "development") ? "var disqus_developer = 1;" : "") +
                 "var disqus_url = 'http://setdirection.com/article/" + story.id + "';" +
-                "(function() { var dsq = document.createElement('script'); dsq.async = true; dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';" + 
+                "(function() { var dsq = document.createElement('script'); dsq.async = true; dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';" +
                 "(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();";
-        document.body.appendChild(script);        
+        document.body.appendChild(script);
     }
-    
+
     // Take the raw story object in and add helper data
-    function mungeStory(story) {
+    function prepareStoryForTemplate(story) {
+        if (story.prepared) return;
+
+        // give back a nice template-ready date
         story.date = $.timeago(story.pubDate);
+
+        // setup the tags
+        var tagString = "";
+        $.each(story.tags, function(index, tag) {
+            tagString += '<a href="/tag/' + tag + '" onclick="displayStoriesForCategory(\'' + story.title + '\');return false;" class="tag">' + tag + '</a>';
+            if (index < story.tags.length - 1) tagString += ', ';
+        });
+        story.tagsAsString = tagString;
+        
+        story.prepared = true;
+
         return story;
     }
-    
+
     // handle history
     // TODO: share with the URL parser
     $(window).bind("popstate", function(e) {
         var state = e.originalEvent.state;
-        
+
         console.log("POP goes the weazle! ", state);
         console.log(location.pathname.length, location.pathname.substr(1));
-        
+
         if (state && state.type == "displayStory" && state.story.id) {
             console.log("displayStory: ", state);
-            
+
             //console.log(state.story.id);
             document.title = state.title;
-            
+
             // FIXME: work out the right invocation
             client.displayStory(state.story.id, true);
         } else if (location.pathname && location.pathname.length > 1) { // location check here
             console.log("real pathname: " + location.pathname);
-            
+
             var articleIdMatch = location.pathname.match(/\/article\/(.+)/);
             if (articleIdMatch === null) { // no article found
                 displayStoryFailure({ type: "no article id", id: articleId });
@@ -143,21 +154,21 @@ var client = (function() {
         // performs the initial display of the stories when the site is loaded
         displayStories: function(opts) {
             opts = opts || {};
-            
+
             // TODO: display some kind of loading indicator
-            
+
             // if show more articles present, nuke it
             $(S_SHOW_MORE_ARTICLES).remove();
-            
+
             // requests the posts and pass in a callback
-            blog.posts({ 
-                        count: settings.storiesOnHome, 
+            blog.posts({
+                        count: settings.storiesOnHome,
                        lastId: opts.lastId,
                     onSuccess: function(data) {
                         // TODO: remove the loading indicator
-                        
+
                         var storiesContent = $(S_STORIES_CONTENT);
-                        
+
                         var storyTemplate = $((settings.showFullStory) ? S_MT_STORY : S_MT_EXCERPT).html();
 
                         // add each story to the main page
@@ -165,21 +176,21 @@ var client = (function() {
                         var showMore = true;
                         var lastStory;
                         $.each(data, function(index, story) {
-                            story = mungeStory(story);
+                            story = prepareStoryForTemplate(story);
                             lastStory = story;
-                            
+
                             var storyHtml = Mustache.to_html(storyTemplate, story);
                             storiesContent.append(storyHtml);
-                            
+
                             // the templates are hidden initially to permit a nice little fade-in effect
                             var newStorySelector = "#" + story.id;
                             $(newStorySelector).delay(delay);
-                            delay += INITIAL_STORY_FADE_IN_DELAY; 
+                            delay += INITIAL_STORY_FADE_IN_DELAY;
                             $(newStorySelector).fadeIn();
 
                             if (story.lastArticle) showMore = false;
                         });
-                        
+
                         // if there's more, show a more link at the bottom
                         if (showMore && lastStory) {
                             var showMoreTemplate = $(S_MT_SHOW_MORE_ARTICLES).html();
@@ -190,7 +201,7 @@ var client = (function() {
                             $(S_SHOW_MORE_ARTICLES).delay(delay * 1.2);
                             $(S_SHOW_MORE_ARTICLES).fadeIn();
                         }
-                        
+
                         DATA_LOADED_WITH_STORIES = true;
                     },
                     onFailure: function(errorCode) {
@@ -200,33 +211,38 @@ var client = (function() {
         },
 
         displayStoriesFromStory: function(opts) {
+            // DION
             $("body").removeClass("moveRight");
             if (!DATA_LOADED_WITH_STORIES) { // just show them!
                 this.displayStories(opts);
             }
+            
+            // setup a state for the home page
+            history.pushState({}, config.title, "/");
+            document.title = config.title;
         },
 
         displayFirehoseItems: function(opts) {
             opts = opts || {};
-            
+
             // TODO: show loading indicator
-            
+
             // if show more articles present, nuke it
             $(S_SHOW_MORE_FIREHOSE_ITEMS).remove();
-            
+
             // requests the posts and pass in a callback
-            blog.firehosePosts({ 
-                        count: settings.firehoseItemsOnHome, 
+            blog.firehosePosts({
+                        count: settings.firehoseItemsOnHome,
                        lastId: opts.lastId,
                     onSuccess: function(data) {
                         // TODO: remove the loading indicator
-                        
+
                         var firehoseContent = $(S_FIREHOSE_CONTENT);
 
                         // if there are no stories present, nuke any existing content
-                        // NOTE: commented out to support showing more articles                        
+                        // NOTE: commented out to support showing more articles
                         // mainContent.empty();
-                        
+
                         var twitterTemplate = $(S_MT_FIREHOSE_TWITTER).html();
                         var linkTemplate = $(S_MT_FIREHOSE_LINK).html();
 
@@ -248,48 +264,49 @@ var client = (function() {
                                 default:
                                     template = undefined;
                             }
-                            
+
                             if (!template) {
                                 // TODO: make sure console is always around
                                 console.warn("Firehose item type '" + item.type + "' unsupported (id: " + item.id + ")");
                                 return true;
                             }
-                            
+
                             var itemHtml = Mustache.to_html(template, item);
                             firehoseContent.append(itemHtml);
-                            
+
                             // the templates are hidden initially to permit a nice little fade-in effect
                             var newItemSelector = "#" + item.id;
                             $(newItemSelector).delay(delay);
-                            delay += INITIAL_FIREHOSE_ITEM_FADE_IN_DELAY; 
+                            delay += INITIAL_FIREHOSE_ITEM_FADE_IN_DELAY;
                             $(newItemSelector).fadeIn();
 
                             if (item.lastItem) showMore = false;
                         });
-                        
+
                         if (showMore && lastItem) {
                             var showMoreTemplate = $(S_MT_SHOW_MORE_FIREHOSE_ITEMS).html();
                             lastItem.urlId = encodeURI(lastItem.id);
                             var showMoreHtml = Mustache.to_html(showMoreTemplate, lastItem);
                             firehoseContent.append(showMoreHtml);
-                        
+
                             $(S_SHOW_MORE_FIREHOSE_ITEMS).delay(delay * 1.2);
                             $(S_SHOW_MORE_FIREHOSE_ITEMS).fadeIn();
                         }
-                        
+
                     },
                     onFailure: function(errorCode) {
                         // TODO: implement the error function
                     }
             });
         },
-        
+
         displayStory: function(storyId, fromPop) {
             // requests the posts and pass in a callback
             blog.post({
                            id: storyId,
-                    fullStory: true, 
+                    fullStory: true,
                     onSuccess: function(story) {
+                        story = prepareStoryForTemplate(story);
                         // check if that story is currently in the DOM
                         // var $story = $("#" + story.id);
                         // var storyVisible = false;
@@ -298,7 +315,7 @@ var client = (function() {
                         //     storyVisible = util.checkInView($story);
                         //     console.log("Story visible: " + storyVisible);
                         // }
-                        // 
+                        //
                         // // TODO: change this
                         // storyVisible = false;
 
@@ -308,26 +325,27 @@ var client = (function() {
 
                         var storyContent = $(S_STORY_CONTENT);
                         storyContent.empty();
-                        
+
                         var storyTemplate = $(S_MT_DETAILS).html();
                         var storyHtml = Mustache.to_html(storyTemplate, story);
                         storyContent.append(storyHtml);
 
                         // don't animate in from popstate
                         if (fromPop) {
-                            console.log("SET TO ZERO");
                             $('#story-page').css({
                                 '-webkit-transition-duration': '0',
                                 '-moz-transition-duration': '0s'
                             });
 
-                            // FIXME: attach to the end of the transition
-                            setTimeout(function() {
-                                $('#story-page').css({
+                            var resetTransitionDuration = function() {
+                                $(this).css({
                                     '-webkit-transition-duration': '0.3s',
                                     '-moz-transition-duration': '0.3s'
-                                })
-                            }, 300);
+                                });
+                            };
+
+                            $('#story-page').bind('webkitTransitionEnd', resetTransitionDuration);
+                            $('#story-page').bind('mozTransitionEnd', resetTransitionDuration);
                         }
 
                         $("body").addClass("moveRight");
@@ -337,11 +355,11 @@ var client = (function() {
 
                         // change the url, etc.
                         if (!fromPop) changeStateToStoryDetail(story);
-                        
+
                         // TODO: change settings to ensure same stories on main page are displayed
                         // in the sidebar; rely on blog to do the caching
-                        blog.posts({ 
-                                    count: settings.storiesOnHome, 
+                        blog.posts({
+                                    count: settings.storiesOnHome,
                                 onSuccess: function(data) {
                                     var storiesContent = $(S_SMALL_STORIES_CONTENT);
                                     storiesContent.empty();
@@ -352,12 +370,13 @@ var client = (function() {
                                     var showMore = true;
                                     var lastStory;
                                     $.each(data, function(index, story) {
+                                        story = prepareStoryForTemplate(story);
                                         lastStory = story;
 
                                         if (storyId == story.id) story.specialClass = "current-story-small";
                                         var storyHtml = Mustache.to_html(storyTemplate, story);
                                         story.specialClass = undefined;
-                                        
+
                                         storiesContent.append(storyHtml);
 
                                         if (story.lastArticle) showMore = false;

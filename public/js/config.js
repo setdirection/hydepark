@@ -11,6 +11,9 @@ var config = (typeof process !== "undefined" && process.env['VMC_MONGODB']) ? { 
 };
 
 config.title = "Set Direction - A Ben and Dion Company";
+config.storiesOnHome = 10;
+config.firehoseItemsOnHome = 15;
+config.showFullStory = false;
 
 // only save this off if not in a browser
 if (typeof window === 'undefined') {

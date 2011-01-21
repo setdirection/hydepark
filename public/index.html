@@ -18,7 +18,7 @@
   <script type="text/javascript" src="/js/blog.js"></script>
   <script type="text/javascript" src="/js/client.js"></script>
   
-  <script type="text/javascript" src="http://use.typekit.com/jgr4fod.js"></script>
+  <script type="text/javascript" src="http://use.typekit.com/jgr4fod.js" defer async></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
   <script id="template-story-small" type="text/html">
@@ -72,7 +72,7 @@
         </div>
         
         <div class="story-byline">
-            Posted by <span class="author">{{author}}</span> {{date}} (tags: <span class="tags">{{tags}}</span>)
+            Posted by <span class="author">{{author}}</span> {{date}} (tags: <span class="tags">{{{tagsAsString}}}</span>)
         </div>
         
         <div class="story-excerpt">
@@ -92,7 +92,7 @@
         </div>
         
         <div class="story-byline">
-            Posted by <span class="author">{{author}}</span> {{date}} (tags: <span class="tags">{{tags}}</span>)
+            Posted by <span class="author">{{author}}</span> {{date}} (tags: <span class="tags">{{{tagsAsString}}}</span>)
         </div>
         
         <div class="story-full">
@@ -110,7 +110,7 @@
         </div>
         
         <div class="story-byline">
-            Posted by <span class="author">{{author}}</span> {{date}} (tags: <span class="tags">{{tags}}</span>)
+            Posted by <span class="author">{{author}}</span> {{date}} (tags: <span class="tags">{{{tagsAsString}}}</span>)
         </div>
         
         <div class="story-full">
