@@ -79,7 +79,7 @@ var client = (function() {
 
     // Take the raw story object in and add helper data
     function prepareStoryForTemplate(story) {
-        if (story.prepared) return;
+        if (story.prepared) return story;
 
         // give back a nice template-ready date
         story.date = $.timeago(story.pubDate);
